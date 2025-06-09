@@ -1,19 +1,10 @@
-import loader from "/components/loader/loader.js"
+import loader from 'https://components.int-t.com/core/loader/loader.js';
+import { Page } from 'https://components.int-t.com/core/page/page.js';
 
-async function loadPage () {
-  return await loader.loadHTMLIfNotExists(`/pages/main/main.html`, 'main-banner');
+loader.loadCSS(import.meta.resolve('./main.css'));
+
+export class MainPage extends Page { 
+  
 }
 
-class Main {
-  constructor() {
-    this.render = async (form) => {
-      const res = await loadPage();
-      if (res != null)
-      form.innerHTML = res;
-      this.components = {};
-    };
-  }
-}
-
-const main = new Main();
-export default main;
+customElements.define('main-page', MainPage);

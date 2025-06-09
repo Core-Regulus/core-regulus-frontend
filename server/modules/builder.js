@@ -146,8 +146,20 @@ async function renderPage(config, page, styles, templates) {
   await writeRenderedFile(config, template, output);
 }
 
+async function getFilesByExt(root, ext) {
+  const found = await fs.readdir(root, { recursive: true });
+  const res = [];
+  for (const file of found) {
+    const pt = path.parse(file);
+    if (pt.ext == ext) {
+      res.push(path.join(root, file));
+    }
+  }
+  return res;
+}
+
 async function getPagesList(config) {
-  const found = await readdir(config.settings.pages, [htmlOnly]);
+  const found = await getFilesByExt(config.settings.pages, '.html');
   const styles = await getStyles(config);
   const templates = await getTemplates(config);
   for (const file of found) {
