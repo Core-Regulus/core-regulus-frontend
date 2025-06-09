@@ -1,0 +1,29 @@
+{
+  "name": "flowers-frontend-dev-server",
+  "version": "1.0.0",
+  "description": "dev Frontend Server",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lime-Vizio/flowers-frontend"
+  },
+  "author": "millerrabin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lime-Vizio/flowers-frontend/issues"
+  },
+  "homepage": "https://github.com/Lime-Vizio/flowers-frontend#readme",
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "koa": "^3.0.0",
+    "koa-router": "^13.0.1",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0",
+    "mustache": "^4.2.0",
+    "uglifycss": "^0.0.29"
+  }
+}
