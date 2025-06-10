@@ -2,6 +2,6 @@ services:
   node:
     build: ./node
     volumes:
-      - /home/ci/core-regulus/frontend:./app
+      - .:/app
     working_dir: /app
     entrypoint: ["node"]
