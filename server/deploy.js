@@ -17,5 +17,5 @@ process.on("unhandledRejection", function (reason, p) {
 });
 
 config.settings.minifyCSS = true;
-await start(config, target);
+await start(config);
 console.log('Done');
