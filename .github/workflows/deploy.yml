@@ -43,5 +43,5 @@ jobs:
           script: |
             cd /home/ci/core-regulus/frontend/deploy
             docker compose build
-            docker compose run -rm --workdir /app/server --remove-orphans --entrypoint npm node install
-            docker compose run -rm --workdir /app/server --remove-orphans node deploy.js
+            docker compose run --rm --workdir /app/server --remove-orphans --entrypoint npm node install
+            docker compose run --rm --workdir /app/server --remove-orphans node deploy.js
