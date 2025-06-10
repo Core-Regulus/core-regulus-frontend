@@ -32,6 +32,6 @@ jobs:
           key: ${{ secrets.SSH }}
           port: 22
           script: |
-            cd /home/ci/core-regulus/frontend
+            cd /home/ci/core-regulus/frontend/deploy
             docker compose build
             docker compose run --workdir /app/server npm install
