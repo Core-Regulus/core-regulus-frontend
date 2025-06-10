@@ -1,22 +1,6 @@
 import config from './config.js';
 import builder from './modules/builder.js';
 
-const branch = process.env['BRANCH'] ?? process.argv[2];
-
-if (branch == null)
-  throw new Error('Invalid branch');
-
-
-const target = branch == 'main' ? 'dev' :
-               branch == 'production' ? 'prod' :
-               unknownBranch(branch);
-console.log('Current branch is: ', branch, 'Current target is: ', target);
-
-function unknownBranch(branch) {
-  throw new Error(`Unknown branch ${branch}`);
-}
-
-
 async function start() {
   console.log('Building project');  
   await builder.start(config);
