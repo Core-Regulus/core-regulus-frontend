@@ -1,2 +1,5 @@
 node_modules
-.html
+.idea
+/static/styles
+/static/*.html
+.env
