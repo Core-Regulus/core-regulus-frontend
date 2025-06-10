@@ -24,7 +24,7 @@ jobs:
           key: ${{secrets.SSH}}
           source: "*"
           target: "/home/ci/core-regulus/frontend"
-      - name: Docker Compose
+      - name: Docker Compose Node
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
@@ -32,7 +32,6 @@ jobs:
           key: ${{ secrets.SSH }}
           port: 22
           script: |
-            cd /home/ci/core-regulus/frontend/server
-            npm install
-            cd ..
-            
+            cd /home/ci/core-regulus/frontend
+            docker compose build
+            docker compose run --workdir /app/server npm install
