@@ -6,22 +6,18 @@ import uglifycss from 'uglifycss';
 
 const handlerPath = '../pages';
 
-function htmlOnly(file, stats) {
-  const ext = path.extname(file);
-  return !stats.isDirectory() && ext != '.html';
-}
-
 function cssOnly(isMobile) {
   return (file, stats) => {
     const ext = path.extname(file);
     if (stats.isDirectory()) return false;
-    if (ext != '.css') return true;
+    if (ext != '.css') return false;
     const pt = path.dirname(file);
-    if (pt.includes('node_modules')) return true;
+    if (pt.includes('node_modules')) return false;
     const bn = path.basename(file);
     const cm = bn.indexOf('-mobile') != -1;
-    if (isMobile) return !cm;
-    return cm;
+    if (cm && isMobile) 
+      return true;
+    return !cm;
   };
 }
 
@@ -90,7 +86,7 @@ async function renderFile(config, file, styles, templates) {
   const titleName = root.attr('data-title');
   if (titleName) {
     const titleEl = template('title');
-    titleEl.html(`${titleName} - Flowers in 4 Hours`);
+    titleEl.html(`${titleName}`);
   }
   const onloadedAttr = root.attr('data-loaded');
   const onloaded =
@@ -206,7 +202,7 @@ function pathToTemplateId(rPath) {
 }
 
 async function getTemplatesFromDir(baseDir, rootDir) {
-  const files = await getFilesByExt(baseDir, htmlOnly);
+  const files = await getFilesByExt(baseDir, '.html');
   const res = [];
 
   for (const file of files) {
