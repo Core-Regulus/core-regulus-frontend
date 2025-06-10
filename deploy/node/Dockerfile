@@ -1,3 +1,3 @@
 FROM node:24
-WORKDIR /scripts
+WORKDIR /
 CMD ["node"]
