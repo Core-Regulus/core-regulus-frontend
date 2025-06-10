@@ -1,6 +1,5 @@
 import config from './config.js';
 import builder from './modules/builder.js';
-import 'dotenv/config';
 
 const branch = process.env['BRANCH'] ?? process.argv[2];
 

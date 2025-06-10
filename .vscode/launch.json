@@ -21,7 +21,7 @@
       "args": [
         "main"
       ],
-      "program": "${workspaceFolder}/server/deploy.mjs"
+      "program": "${workspaceFolder}/server/deploy.js"
     },
   ]
 }
