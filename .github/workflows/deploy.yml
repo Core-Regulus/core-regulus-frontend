@@ -43,4 +43,4 @@ jobs:
           script: |
             cd /home/ci/core-regulus/frontend/deploy
             docker compose build
-            docker compose run --workdir /app/server npm install
+            docker compose run --workdir /app/server --entrypoint npm node install
