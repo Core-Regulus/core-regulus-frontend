@@ -24,6 +24,7 @@ jobs:
           key: ${{secrets.SSH}}
           source: "*"
           target: "/home/ci/core-regulus/frontend"
+          debug: true
       - name: Docker Compose Node
         uses: appleboy/ssh-action@v1.0.0
         with:
