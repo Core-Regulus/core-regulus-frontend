@@ -19,7 +19,6 @@ export default {
   maxParallelRenderers: 50, //How much renderers will be launched in parallel
   port,
   staticPath,
-  settings,
-  isDev: true
+  settings
 };
 

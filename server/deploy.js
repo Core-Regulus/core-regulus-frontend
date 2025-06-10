@@ -17,6 +17,5 @@ process.on("unhandledRejection", function (reason, p) {
 });
 
 config.settings.minifyCSS = true;
-config.settings.isDev = branch == 'main';
 await start(config, target);
 console.log('Done');
