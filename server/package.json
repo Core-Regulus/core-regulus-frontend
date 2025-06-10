@@ -1,5 +1,5 @@
 {
-  "name": "flowers-frontend-dev-server",
+  "name": "core-regulus-frontend-dev-server",
   "version": "1.0.0",
   "description": "dev Frontend Server",
   "main": "main.js",
@@ -9,21 +9,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lime-Vizio/flowers-frontend"
+    "url": "git+https://github.com/MillerRabin/core-regulus-frontend"
   },
   "author": "millerrabin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Lime-Vizio/flowers-frontend/issues"
+    "url": "https://github.com/MillerRabin/core-regulus-frontend/issues"
   },
-  "homepage": "https://github.com/Lime-Vizio/flowers-frontend#readme",
+  "homepage": "https://github.com/MillerRabin/core-regulus-frontend#readme",
   "dependencies": {
+    "@sparticuz/chromium": "^133.0.0",
+    "cheerio": "^1.1.0",
     "chokidar": "^4.0.3",
     "koa": "^3.0.0",
     "koa-router": "^13.0.1",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
     "mustache": "^4.2.0",
+    "puppeteer-core": "^24.10.0",
     "uglifycss": "^0.0.29"
   }
 }

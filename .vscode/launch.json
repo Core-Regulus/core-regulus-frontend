@@ -10,6 +10,18 @@
       "name": "Debug server",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/server/main.js"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Deploy",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "args": [
+        "main"
+      ],
+      "program": "${workspaceFolder}/server/deploy.mjs"
+    },
   ]
 }

@@ -1,5 +1,7 @@
 import path from 'path';
 import { promises as fs } from 'fs';
+//import puppeteer from './puppeteer.js';
+import * as cheerio from 'cheerio';
 import uglifycss from 'uglifycss';
 
 const handlerPath = '../pages';
@@ -146,14 +148,26 @@ async function renderPage(config, page, styles, templates) {
   await writeRenderedFile(config, template, output);
 }
 
-async function getFilesByExt(root, ext) {
+async function getFilesByExt(root, extFilter) {
   const found = await fs.readdir(root, { recursive: true });
   const res = [];
   for (const file of found) {
     const pt = path.parse(file);
-    if (pt.ext == ext) {
+    const te = typeof extFilter;
+    if ((te == 'string') && (pt.ext == extFilter)) {
       res.push(path.join(root, file));
+      continue;
     }
+
+    if (te == 'function') {
+      const fullPt = path.join(root, file)
+      const stat = await fs.stat(fullPt);
+      const rs = extFilter(fullPt, stat);
+      if (rs) {
+        res.push(fullPt);
+      }
+    }
+
   }
   return res;
 }
@@ -192,7 +206,7 @@ function pathToTemplateId(rPath) {
 }
 
 async function getTemplatesFromDir(baseDir, rootDir) {
-  const files = await readdir(baseDir, [htmlOnly]);
+  const files = await getFilesByExt(baseDir, htmlOnly);
   const res = [];
 
   for (const file of files) {
@@ -239,8 +253,9 @@ async function getStyles(config) {
 
   await fs.mkdir(config.settings.mininfyCSSPath, { recursive: true });
   await clear();
-  const mobileFiles = await readdir(config.settings.root, [cssOnly(true)]);
-  const desktopFiles = await readdir(config.settings.root, [cssOnly(false)]);
+  
+  const mobileFiles = await getFilesByExt(config.settings.root, cssOnly(true));
+  const desktopFiles = await getFilesByExt(config.settings.root, cssOnly(false));
 
   if (!config.settings.minifyCSS) {
     const mobile = mobileFiles.map(
