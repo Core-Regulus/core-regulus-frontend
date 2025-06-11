@@ -33,7 +33,7 @@ function setComponentBodyClass(template, bodyClass) {
 }
 
 function setRouterComponent(template, component) {
-  const router = template('#Router');
+  const router = template('i-router');
   router.html(component.html());
 }
 
@@ -76,30 +76,23 @@ async function renderFile(config, file, styles, templates) {
   const component = cheerio.load(html, null, false);
   const root = component('*:not(* *)');
   //const basename = path.basename(file);
-  const output = root.attr('data-output');
+  const output = root.attr('output');
   if (output == null) return;
   let outputNames = output.split(/,\s/);
   const templateName = root.attr('data-template') ?? 'index.html';
-  const noIndex = root.attr('data-index');
+  const noIndex = root.attr('index');
 
   const template = await loadTemplate(config, templateName);
-  const titleName = root.attr('data-title');
+  const titleName = root.attr('title');
   if (titleName) {
     const titleEl = template('title');
     titleEl.html(`${titleName}`);
   }
-  const onloadedAttr = root.attr('data-loaded');
-  const onloaded =
-    onloadedAttr != null ? await loadHandler(onloadedAttr) : null;
 
   setRouterComponent(template, component);
   setStyles(template, styles);
-  setTemplates(template, templates);
-  await includeComponents(config, template);
-  addNoIndex(config, noIndex, template);
-  if (onloaded) {
-    await onloaded(template);
-  }
+  //setTemplates(template, templates);
+  await includeComponents(config, template);  
   for (const output of outputNames) {
     writeRenderedFile(config, template, output);
   }
@@ -138,7 +131,7 @@ async function renderPage(config, page, styles, templates) {
   const template = await loadTemplate(config, templateName);
   setRouterComponent(template, component);
   setStyles(template, styles);
-  setTemplates(template, templates);
+  //setTemplates(template, templates);
   await includeComponents(config, template);
   if (page.onloaded) await page.onloaded(template, page.data, config);
   await writeRenderedFile(config, template, output);
