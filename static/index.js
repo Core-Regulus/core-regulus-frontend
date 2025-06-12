@@ -1,6 +1,7 @@
+import './components/router/router.js';
 import 'https://components.int-t.com/core/page/page.js'
 
-export default [
-  { path: /^\/$/i, route: 'main', target: '/' },
-  { path: /^\/index.html$/i, route: 'main' }
+export const routes = [
+  { path: /^\/(\?.*)?$/i, page: '/pages/main/main.html', target: '/' },
+  { path: /^\/index.html$/i, page: '/pages/main/main.html' }
 ];
