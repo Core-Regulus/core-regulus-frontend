@@ -1,6 +1,6 @@
 import 'https://components.int-t.com/core/application/application.js';
 import 'https://components.int-t.com/core/router/router.js';
-import 'https://components.int-t.com/core/page/page.js'
+import './pages/main/main.js';
 
 export const routes = [
   { path: /^\/(\?.*)?$/i, page: '/pages/main/main.html', target: '/' },
