@@ -1,4 +1,5 @@
-import './components/router/router.js';
+import 'https://components.int-t.com/core/application/application.js';
+import 'https://components.int-t.com/core/router/router.js';
 import 'https://components.int-t.com/core/page/page.js'
 
 export const routes = [
