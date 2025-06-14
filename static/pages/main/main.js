@@ -2,29 +2,6 @@ import { Page } from 'https://components.int-t.com/core/page/page.js';
 import 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
 
 
-const headerEl = document.querySelector(".header")
-
-window.addEventListener("scroll", function(){
-    const scrollPos = window.scrollY
-
-    if(scrollPos > 100) {
-        headerEl.classList.add("header__scroll")
-    }else{
-        headerEl.classList.remove("header__scroll")
-    }
-})
-
-const menuIcon = document.querySelector('#menu-icon')
-const navbar = document.querySelector('.navbar')
-const navbg = document.querySelector('.nav-bg')
-
-
-menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle('bx-x')
-    navbar.classList.toggle('active')
-    navbg.classList.toggle('active')
-} )
-
 const webglNoiseShader = `
   vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -236,10 +213,43 @@ class World {
 
 export class CorePage extends Page { 
   world = null;
+
+  #scrollHandler = () => {
+    const scrollPos = window.scrollY
+    if (scrollPos > 100) {
+      this.components.header.classList.add("header__scroll");
+    } else {
+      this.components.header.classList.remove("header__scroll");
+    }
+  }
+    
+  #initScroll() {
+    window.addEventListener("scroll", this.#scrollHandler);
+  }
+
+  #releaseScroll() {
+    window.removeEventListener("scroll", this.#scrollHandler);
+  }
+
+
   connectedCallback() {
     if (this.world == null) {
       this.world = new World();
-    }    
+    }
+    console.log('connected');
+  }
+
+  disconnectedCallback() {
+    this.#releaseScroll();
+  }
+
+  componentReady() {    
+    this.#initScroll();
+    this.components.menuicon.onclick = () => {
+      this.components.menuicon.classList.toggle('bx-x');
+      this.components.navbar.classList.toggle('active');
+      this.components.navbg.classList.toggle('active');
+    };
   }
 }
 
