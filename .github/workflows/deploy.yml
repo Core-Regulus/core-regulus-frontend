@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} is deploying the project
 on:
   push:
     branches: [ main, production ]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -43,3 +43,9 @@ jobs:
             docker compose build
             docker compose run --rm --workdir /app/server --remove-orphans --entrypoint npm node install
             docker compose run --rm --workdir /app/server --remove-orphans node deploy.js
+      - name: Purge Cache
+        run : |
+          curl --fail --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${{secrets.ZONE_ID}}/purge_cache" \
+                -H "Authorization: Bearer ${{secrets.PURGE_CACHE_TOKEN}}" \
+                -H "Content-Type: application/json" \
+                --data '{"purge_everything":true}'
