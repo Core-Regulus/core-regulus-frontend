@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <script src="main.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">[C]</a>
+        <i class="bx bx-menu" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="nav-bg"></div>
+    <main class="content">
+        <section class="core">
+            <div class="text-block">
+                <h1>Core Regulus</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non beatae itaque ipsa a ratione velit ea iusto illo! Ab, itaque.</p>
+                <button type="button" class="btn">Schedule a meet</button>
+            </div>
+            <div id="Render"></div>
+ 
+            <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.162.0/examples/jsm/controls/OrbitControls.js"
+                }
+            }
+            </script>
+            <script src="app.js" type="module"></script>
+        </section>
+        <section class="industries">
+            <h2>Supported industries</h2>
+            <article class="card">
+                <i class='bxr  bx-plane-alt'></i>                 
+                <h3 class="title">Lorem ipsum</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>          
+            </article>
+            <article class="card">
+                <i class='bxr  bx-signal-5'></i> 
+                <h3 class="title">Lorem ipsum</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>          
+            </article>
+            <article class="card">
+                <i class='bxr  bx-cloud-alt'></i> 
+                <h3 class="title">Lorem ipsum</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>          
+            </article>
+            <article class="card">
+                <i class='bxr  bx-browser-activity'></i> 
+                <h3 class="title">Lorem ipsum</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>          
+            </article>
+        </section>
+        <div class="decors">
+            <div class="decor decor1"></div>
+            <div class="decor decor2"></div>
+        </div>        
+        <section class="calendar">
+            <div class="wrapper">
+                <header>
+                    <p class="current-date"></p>
+                    <div class="icons">
+                        <button id="prev" class="material-simbols-rounded">
+                            <i class='bxr  bx-chevron-left'></i> 
+                        </button>
+                        <button id="next" class="material-simbols-rounded">
+                            <i class='bxr  bx-chevron-right'></i> 
+                        </button>
+                    </div>
+                </header>
+                <article class="calendar-body">
+                    <ul class="weeks">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thu</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                    <div class="days"></div>
+                </article>
+                <div class="hours"></div>                       
+            </div>
+            <script src="script.js" defer></script>
+        </section>
+    </main>
+</body>
+</html>
+
+
