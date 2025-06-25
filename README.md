@@ -1,8 +1,7 @@
 # Core Regulus Frontend
 ## How to start ?
 
-* install prerequisites
-  You need nodejs 22 or above
+* Install Nodejs 22 or above
 
 * clone 
 ```bash
