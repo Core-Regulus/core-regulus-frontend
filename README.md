@@ -1,6 +1,9 @@
 # Core Regulus Frontend
 ## How to start ?
 
+* install prerequisites
+  You need nodejs 22 or above
+
 * clone 
 ```bash
   git clone git@github.com:Core-Regulus/core-regulus-frontend.git
