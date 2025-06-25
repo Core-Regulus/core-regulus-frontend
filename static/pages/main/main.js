@@ -1,255 +1,285 @@
 import { Page } from 'https://components.int-t.com/core/page/page.js';
-import 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import '../../components/calendar/calendar.js';
 
-
-const webglNoiseShader = `
-  vec3 mod289(vec3 x) {
-    return x - floor(x * (1.0 / 289.0)) * 289.0;
-  }
-
-  vec4 mod289(vec4 x) {
-    return x - floor(x * (1.0 / 289.0)) * 289.0;
-  }
-
-  vec4 permute(vec4 x) {
-    return mod289(((x*34.0)+10.0)*x);
-  }
-
-  vec4 taylorInvSqrt(vec4 r) {
-    return 1.79284291400159 - 0.85373472095314 * r;
-  }
-
-  float snoise(vec3 v) {
-    const vec2  C = vec2(1.0/6.0, 1.0/3.0);
-    const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
-
-    vec3 i  = floor(v + dot(v, C.yyy));
-    vec3 x0 = v - i + dot(i, C.xxx);
-
-    vec3 g = step(x0.yzx, x0.xyz);
-    vec3 l = 1.0 - g;
-    vec3 i1 = min(g.xyz, l.zxy);
-    vec3 i2 = max(g.xyz, l.zxy);
-
-    vec3 x1 = x0 - i1 + C.xxx;
-    vec3 x2 = x0 - i2 + C.yyy;
-    vec3 x3 = x0 - D.yyy;
-
-    i = mod289(i);
-    vec4 p = permute(permute(permute(
-    i.z + vec4(0.0, i1.z, i2.z, 1.0))
-    + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-    + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-
-    float n_ = 0.142857142857;
-    vec3  ns = n_ * D.wyz - D.xzx;
-
-    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-    vec4 x_ = floor(j * ns.z);
-    vec4 y_ = floor(j - 7.0 * x_);
-
-    vec4 x = x_ * ns.x + ns.yyyy;
-    vec4 y = y_ * ns.x + ns.yyyy;
-    vec4 h = 1.0 - abs(x) - abs(y);
-
-    vec4 b0 = vec4(x.xy, y.xy);
-    vec4 b1 = vec4(x.zw, y.zw);
-
-    vec4 s0 = floor(b0)*2.0 + 1.0;
-    vec4 s1 = floor(b1)*2.0 + 1.0;
-    vec4 sh = -step(h, vec4(0.0));
-
-    vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
-    vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-
-    vec3 p0 = vec3(a0.xy,h.x);
-    vec3 p1 = vec3(a0.zw,h.y);
-    vec3 p2 = vec3(a1.xy,h.z);
-    vec3 p3 = vec3(a1.zw,h.w);
-
-    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
-    p0 *= norm.x;
-    p1 *= norm.y;
-    p2 *= norm.z;
-    p3 *= norm.w;
-
-    vec4 m = max(0.5 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-    m = m * m;
-    return 105.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
-  }
-`;
-
-class Molecule extends THREE.Object3D {
-  constructor() {
-    super();
-    this.material;
-    this.geometry;
-    this.mesh;
-    this.radius = 1.5;
-    this.detail = 40;
-    this.particleSizeMin = 0.01;
-    this.particleSizeMax = 0.08;
-
-    this.build();
-  }
-
-  build() {
-    this.geometry = new THREE.IcosahedronBufferGeometry(1, this.detail);
-    this.material = new THREE.PointsMaterial({
-      map: this.dot(),
-      blending: THREE.AdditiveBlending,
-      color: 0x101A88,
-      depthTest: false
-    });
-
-    this.setupShader(this.material);
-    this.mesh = new THREE.Points(this.geometry, this.material);
-    this.add(this.mesh);
-  }
-
-  dot(size = 32, color = "#FFFFFF") {
-    const sizeH = size * 0.5;
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = size;
-    const ctx = canvas.getContext('2d');
-    const circle = new Path2D();
-    circle.arc(sizeH, sizeH, sizeH, 0, 2 * Math.PI);
-    ctx.fillStyle = color;
-    ctx.fill(circle);
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  setupShader(material) {
-    material.onBeforeCompile = (shader) => {
-      shader.uniforms.time = { value: 0 };
-      shader.uniforms.radius = { value: this.radius };
-      shader.uniforms.particleSizeMin = { value: this.particleSizeMin };
-      shader.uniforms.particleSizeMax = { value: this.particleSizeMax };
-      shader.vertexShader = 'uniform float particleSizeMax;\n' + shader.vertexShader;
-      shader.vertexShader = 'uniform float particleSizeMin;\n' + shader.vertexShader;
-      shader.vertexShader = 'uniform float radius;\n' + shader.vertexShader;
-      shader.vertexShader = 'uniform float time;\n' + shader.vertexShader;
-      shader.vertexShader = webglNoiseShader + "\n" + shader.vertexShader;
-      shader.vertexShader = shader.vertexShader.replace(
-        '#include <begin_vertex>',
-        `
-          vec3 p = position;
-          float n = snoise(vec3(p.x*.6 + time*0.2, p.y*0.4 + time*0.3, p.z*.2 + time*0.2));
-          p += n * 0.4;
-
-          float l = radius / length(p);
-          p *= l;
-          float s = mix(particleSizeMin, particleSizeMax, n);
-          vec3 transformed = vec3(p.x, p.y, p.z);
-        `
-      );
-      shader.vertexShader = shader.vertexShader.replace(
-        'gl_PointSize = size;',
-        'gl_PointSize = s;'
-      );
-      material.userData.shader = shader;
-    };
-  }
-
-  animate(time) {
-    this.mesh.rotation.set(0, time * 0.2, 0);
-    if (this.material.userData.shader) {
-      this.material.userData.shader.uniforms.time.value = time;
+const pointMaterialShader = {
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    varying float vDistance;
+    uniform float time;
+    
+    void main() {
+        vColor = color;
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        vDistance = -mvPosition.z;
+        float pulse = sin(time * 2.0 + length(position)) * 0.15 + 1.0;
+        vec3 pos = position;
+        pos.x += sin(time + position.z * 0.5) * 0.05;
+        pos.y += cos(time + position.x * 0.5) * 0.05;
+        pos.z += sin(time + position.y * 0.5) * 0.05;
+        mvPosition = modelViewMatrix * vec4(pos, 1.0);
+        gl_PointSize = size * (300.0 / -mvPosition.z) * pulse;
+        gl_Position = projectionMatrix * mvPosition;
     }
+`,
+  fragmentShader: `
+    varying vec3 vColor;
+    varying float vDistance;
+    uniform float time;
+    
+    void main() {
+        vec2 cxy = 2.0 * gl_PointCoord - 1.0;
+        float r = dot(cxy, cxy);
+        if (r > 1.0) discard;
+        float glow = exp(-r * 2.5);
+        float outerGlow = exp(-r * 1.5) * 0.3;
+        vec3 finalColor = vColor * (1.2 + sin(time * 0.5) * 0.1);
+        finalColor += vec3(0.2, 0.4, 0.6) * outerGlow;
+        float distanceFade = 1.0 - smoothstep(0.0, 50.0, vDistance);
+        float intensity = mix(0.7, 1.0, distanceFade);
+        gl_FragColor = vec4(finalColor * intensity, (glow + outerGlow) * distanceFade);
+    }
+`
+};
+
+function createSpiralSphere(radius, particleCount, colors) {
+  const geometry = new THREE.BufferGeometry();
+  const positions = [];
+  const particleColors = [];
+  const sizes = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    const phi = Math.acos(-1 + (2 * i) / particleCount);
+    const theta = Math.sqrt(particleCount * Math.PI) * phi;
+    const x = radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.sin(phi) * Math.sin(theta);
+    const z = radius * Math.cos(phi);
+    positions.push(x, y, z);
+    const colorPos = i / particleCount;
+    const color1 = colors[Math.floor(colorPos * (colors.length - 1))];
+    const color2 = colors[Math.ceil(colorPos * (colors.length - 1))];
+    const mixRatio = (colorPos * (colors.length - 1)) % 1;
+    const finalColor = new THREE.Color().lerpColors(color1, color2, mixRatio);
+    particleColors.push(finalColor.r, finalColor.g, finalColor.b);
+    sizes.push(Math.random() * 0.15 + 0.08);
   }
+
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(particleColors, 3));
+  geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      time: { value: 0 }
+    },
+    vertexShader: pointMaterialShader.vertexShader,
+    fragmentShader: pointMaterialShader.fragmentShader,
+    vertexColors: true,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+
+  return new THREE.Points(geometry, material);
 }
 
-class World {
-  constructor() {
-    this.renderer;
-    this.scene;
-    this.camera;
-    this.molecule;
-    this.container = document.getElementById('canvas-container');
+function createOrbitRings(radius, count, thickness) {
+  const group = new THREE.Group();
 
-    this.build();
-    window.addEventListener('resize', this.resize.bind(this));
-    this.animate = this.animate.bind(this);
-    this.animate();
-  }
+  for (let i = 0; i < count; i++) {
+    const ringGeometry = new THREE.BufferGeometry();
+    const positions = [];
+    const colors = [];
+    const sizes = [];
+    const particleCount = 3000;
 
-  build() {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      this.container.clientWidth / this.container.clientHeight,
-      0.1,
-      1000
-    );
-    this.camera.position.z = 3;
+    const ringColors = [
+      new THREE.Color('#4B0082'), // индиго
+      new THREE.Color('#979CA2'), // холодный нейтральный
+      new THREE.Color('#5D478B'), // пыльная сирень
+      new THREE.Color('#3D0066'), // мистический фиолет
+      new THREE.Color('#ADBCC2'), // металлический оловянный
+      new THREE.Color('#B8F3FF')  // голубое неоновое свечение
+    ];
 
-    this.renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true
+    for (let j = 0; j < particleCount; j++) {
+      const angle = (j / particleCount) * Math.PI * 2;
+      const radiusVariation = radius + (Math.random() - 0.5) * thickness;
+      const x = Math.cos(angle) * radiusVariation;
+      const y = (Math.random() - 0.5) * thickness;
+      const z = Math.sin(angle) * radiusVariation;
+      positions.push(x, y, z);
+      const color = ringColors[i]; // Используем цвет из массива для кольца i
+      colors.push(color.r, color.g, color.b);
+      sizes.push(Math.random() * 0.12 + 0.06);
+    }
+    ringGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    ringGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    ringGeometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 }
+      },
+      vertexShader: pointMaterialShader.vertexShader,
+      fragmentShader: pointMaterialShader.fragmentShader,
+      vertexColors: true,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.container.appendChild(this.renderer.domElement);
 
-    this.molecule = new Molecule();
-    this.scene.add(this.molecule);
+    const ring = new THREE.Points(ringGeometry, material);
+    ring.rotation.x = Math.random() * Math.PI;
+    ring.rotation.y = Math.random() * Math.PI;
+    group.add(ring);
   }
 
-  resize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  animate() {
-    requestAnimationFrame(this.animate);
-    const time = performance.now() * 0.001;
-    this.molecule.animate(time);
-    this.renderer.render(this.scene, this.camera);
-  }
+  return group;
 }
 
-export class CorePage extends Page { 
-  world = null;
+export class CorePage extends Page {       
+  #time = 0;
+  #renderer;
+  #camera;
+  #coreSphere;
+  #orbitRings;
+  #controls;
+  #scene;
 
+  #animate = () => {
+    requestAnimationFrame(this.#animate);
+    this.#time += 0.002;
+    this.#coreSphere.material.uniforms.time.value = this.#time;
+    this.#orbitRings.children.forEach(ring => {
+      ring.material.uniforms.time.value = this.#time;
+    });
+    this.#coreSphere.rotation.y += 0.001;
+    this.#coreSphere.rotation.x = Math.sin(this.#time * 0.5) * 0.15;
+    this.#orbitRings.children.forEach((ring, index) => {
+      const dynamicSpeed = 0.001 * (Math.sin(this.#time * 0.2) + 2.0) * (index + 1);
+      ring.rotation.z += dynamicSpeed;
+      ring.rotation.x += dynamicSpeed * 0.6;
+      ring.rotation.y += dynamicSpeed * 0.4;
+    });
+    this.#controls.update();
+    this.#renderer.render(this.#scene, this.#camera);
+  }
+  
+
+  #updateRendererSize = () => {
+    const renderDom = this.components.render;
+    const width = renderDom.clientWidth;
+    const height = renderDom.clientHeight;
+    this.#renderer.setSize(width, height);
+    this.#camera.aspect = width / height;
+    this.#camera.updateProjectionMatrix();
+  }
+
+  #initRenderer() {
+    this.#scene = new THREE.Scene();
+    this.#scene.fog = new THREE.FogExp2(0xffffff00, 0.01);
+
+    this.#camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // aspect будет обновлён позже
+    this.#renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+    const renderDom = this.components.render;
+    
+    this.#updateRendererSize();
+
+    this.#renderer.setClearColor(0x060A33, 0);
+    this.#renderer.setPixelRatio(window.devicePixelRatio);
+    renderDom.appendChild(this.#renderer.domElement);
+
+    this.#controls = new OrbitControls(this.#camera, this.#renderer.domElement);
+    this.#controls.enableDamping = true;
+    this.#controls.dampingFactor = 0.05;
+    this.#controls.rotateSpeed = 0.5;
+    this.#controls.minDistance = 15;
+    this.#controls.maxDistance = 15;
+    this.#controls.enableZoom = false;
+
+    this.#camera.position.z = 15;
+    this.#camera.position.y = 5;
+    this.#controls.target.set(0, 0, 0);
+    this.#controls.update();
+
+    const sphereColors = [
+      new THREE.Color('#0B0A13'),
+      new THREE.Color('#13193E'),
+      new THREE.Color('#3D0066'),
+      new THREE.Color('#7A9DCB'),
+      new THREE.Color('#C0C0C0'),
+      new THREE.Color('#FFFFFF')
+    ];
+
+    this.#coreSphere = createSpiralSphere(4, 25000, sphereColors);
+    this.#orbitRings = createOrbitRings(5.8, 6, 0.4);
+
+    const mainGroup = new THREE.Group();
+    mainGroup.scale.set(1.2, 1.2, 1.2);
+    mainGroup.add(this.#coreSphere);
+    mainGroup.add(this.#orbitRings);
+    this.#scene.add(mainGroup);
+
+    const menuIcon = this.components.menuIcon;
+    const navbar = this.components.navbar;
+    const navbg = this.components.navbg;
+
+    menuIcon.onclick = () => {
+      menuIcon.classList.toggle('bx-x')
+      navbar.classList.toggle('active')
+      navbg.classList.toggle('active')
+    }
+
+    const cards = Array.from(document.querySelectorAll(".card"))
+    const cardsContainer = this.components.industries;
+
+    cardsContainer.onmousemove =(e) => {
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty("--mouse-x", `${x}px`)
+        card.style.setProperty("--mouse-y", `${y}px`)        
+      }
+    }
+    
+    this.#animate();
+  }
+    
   #scrollHandler = () => {
     const scrollPos = window.scrollY
     if (scrollPos > 100) {
-      this.components.header.classList.add("header__scroll");
+      this.components.header.classList.add("header__scroll")
     } else {
-      this.components.header.classList.remove("header__scroll");
-    }
+      this.components.header.classList.remove("header__scroll")
+    }    
   }
-    
+  
   #initScroll() {
     window.addEventListener("scroll", this.#scrollHandler);
+    window.addEventListener('resize', this.#updateRendererSize);
   }
 
   #releaseScroll() {
     window.removeEventListener("scroll", this.#scrollHandler);
+    window.removeEventListener('resize', this.#updateRendererSize);
   }
 
-
-  connectedCallback() {
-    if (this.world == null) {
-      this.world = new World();
-    }
-    console.log('connected');
-  }
-
+  
   disconnectedCallback() {
     this.#releaseScroll();
   }
 
   componentReady() {    
     this.#initScroll();
-    this.components.menuicon.onclick = () => {
-      this.components.menuicon.classList.toggle('bx-x');
-      this.components.navbar.classList.toggle('active');
-      this.components.navbg.classList.toggle('active');
-    };
+    this.#initRenderer();
   }
 }
 

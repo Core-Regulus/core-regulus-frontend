@@ -1,26 +1,53 @@
-<core-page
-  class="Main page"
-  output="index.html"  
-  title="Welcome to Core Regulus">
+<core-page class="Main page" output="index.html" title="Welcome to Core Regulus">
     <header class="header" name="header">
-        <a href="#" class="logo">[C]</a>
-        <i class="bx bx-menu" id="menu-icon" name="menuicon"></i>
-        <nav class="navbar" name="navbar">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Portfolio</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-        </nav>
+      <a href="#" class="logo">[C]</a>
+      <i class="bx bx-menu" id="menu-icon" name="menu-icon"></i>
+      <nav class="navbar" name="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+      </nav>
     </header>
     <div class="nav-bg" name="navbg"></div>
     <main class="content">
-        <section class="core">
-            <div class="text-block">
-                <h1>Core Regulus</h1>
-                <p>High Performance Database Clusters</p>
-            </div>
-            <div id="canvas-container"></div>
-        </section>
-    </main>
+      <section class="core">
+        <div class="text-block">
+          <h1>Core Regulus</h1>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non beatae itaque ipsa a ratione velit ea iusto
+            illo! Ab, itaque.</p>
+          <button type="button" class="btn">Schedule a meet</button>
+        </div>
+        <div id="Render" name="render"></div>      
+      </section>
+      <section class="industries" name="industries">
+        <h2>Supported industries</h2>
+        <article class="card">
+          <i class='bxr  bx-plane-alt'></i>
+          <h3 class="title">Lorem ipsum</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+        </article>
+        <article class="card">
+          <i class='bxr  bx-signal-5'></i>
+          <h3 class="title">Lorem ipsum</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+        </article>
+        <article class="card">
+          <i class='bxr  bx-cloud-alt'></i>
+          <h3 class="title">Lorem ipsum</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+        </article>
+        <article class="card">
+          <i class='bxr  bx-browser-activity'></i>
+          <h3 class="title">Lorem ipsum</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+        </article>
+      </section>
+      <div class="decors">
+        <div class="decor decor1"></div>
+        <div class="decor decor2"></div>
+      </div>
+      <i-calendar></i-calendar>
+    </main>  
 </core-page>
