@@ -1,5 +1,4 @@
-#Core Regulus Frontend
-
+# Core Regulus Frontend
 ## How to start ?
 
 * clone 
