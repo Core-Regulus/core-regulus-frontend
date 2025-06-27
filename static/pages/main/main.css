@@ -230,7 +230,7 @@ h1 {
 }
 
 
-.Main card:nth-child(2) {
+.Main .card:nth-child(2) {
   --color: 190.14 100% 86.08%;
 }
 
