@@ -227,6 +227,7 @@ h1 {
   align-items: center;
   padding: 30px;
   height: 50%;
+  min-height: 300px;
 }
 
 
