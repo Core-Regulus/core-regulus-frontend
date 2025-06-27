@@ -1,15 +1,15 @@
 <core-page class="Main page" output="index.html" title="Welcome to Core Regulus">
     <header class="header" name="header">
-      <a href="#" class="logo">[C]</a>
+      <a href="/" class="logo">[C]</a>
       <i class="bx bx-menu" id="menu-icon" name="menu-icon"></i>
       <nav class="navbar" name="navbar">
-        <a href="#">Home</a>
-        <a href="#">Industries</a>        
+        <a href="#home">Home</a>
+        <a href="#industries">Industries</a>        
       </nav>
     </header>
     <div class="nav-bg" name="navbg"></div>
     <main class="content">
-      <section class="core">
+      <section id="home" class="core">
         <div class="text-block">
           <h1>Core Regulus</h1>
           <ul class="offer">
@@ -23,27 +23,45 @@
         </div>
         <div id="Render" name="render"></div>      
       </section>
-      <section class="industries" name="industries">
-        <h2>Supported industries</h2>
-        <article class="card">
-          <i class='bxr  bx-plane-alt'></i>
-          <h3 class="title">Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
-        </article>
-        <article class="card">
-          <i class='bxr  bx-signal-5'></i>
-          <h3 class="title">Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
-        </article>
+      <section id="industries" class="industries" name="industries">
+        <h2>We successfully provide IT services in</h2>
         <article class="card">
           <i class='bxr  bx-cloud-alt'></i>
-          <h3 class="title">Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+          <h3 class="title">Retail services</h3>
+          <ul>
+            <li>AI Agents infrastructure As Code</li>
+            <li>Ifrastructure As Code</li>
+            <li>PCI Compliance</li>
+            <li>Autoscaling</li>
+            <li>High-Performance Data Clusters</li>
+          </ul>
         </article>
         <article class="card">
-          <i class='bxr  bx-browser-activity'></i>
-          <h3 class="title">Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, similique.</p>
+          <i class='bxr  bx-plane-alt'></i>
+          <h3 class="title">Aviation</h3>
+          <ul>
+            <li>EASA Part-IS</li>
+            <li>Microsoft Sharepoint</li>
+            <li>Failover data clusters</li>
+          </ul>
+        </article>
+        <article class="card">
+          <i class='bxr  bx-browser-activity'></i>          
+          <h3 class="title">Medical Data Infrastructure</h3>
+          <ul>
+            <li>High-Availability data clusters</li>
+            <li>Personal data security</li>
+            <li>ISO 270001</li>            
+          </ul>          
+        </article>       
+        <article class="card">
+          <i class='bxr bx-signal-5'></i>
+          <h3 class="title">Adult and Gambling Services</h3>
+          <ul>
+            <li>High-Performance Data Routing</li>
+            <li>Vector Database Clusters</li>
+            <li>Big Data and AI Prediction</li>            
+          </ul>
         </article>
       </section>
       <!-- <i-calendar></i-calendar> -->
