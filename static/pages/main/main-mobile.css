@@ -41,3 +41,11 @@
 .Main .card ul li {
   font-size: 1.3rem;
 }
+
+.Main #schedule {
+  padding: 0 2rem;
+}
+
+.Main .core .text-block .btn {
+  width: 75%;
+}
