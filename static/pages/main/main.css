@@ -1,45 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-}
-
-a {
-  color: #fff;
-  text-decoration: none;
-  padding: 5px;
-}
-
-li {
-  list-style: none;
-}
-
-button {
-  background-color: transparent;
-  outline: none;
-  border: none;
-  color: #fff;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  width: 100%;
-  color: #ffffff;
-  background-image: radial-gradient(circle closest-corner, #060A33, #000000);
-  padding-inline: 60px;
-  scroll-behavior: smooth;
-  height: 100vh;
-  overflow-y: hidden;
-}
-
 .Main main {
   width: 100%;
   height: 100%;
@@ -54,20 +12,19 @@ body {
   display: none;
 }
   
-
-
 .Main .core {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;  
   scroll-snap-align: start;
+  height: 100vh;
 }
 
 .Main .core .text-block {
   display: flex;
   flex-direction: column;
-  padding-left: 2rem;  
+  padding-left: 6rem;  
   white-space: nowrap;
 }
 
@@ -76,12 +33,12 @@ body {
   font-size: 1.31rem;
 }
 
-.header {
+.Main header {
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  padding: 20px 60px;
+  padding: 2rem 4rem;
   display: flex;
   background-color: transparent;
   justify-content: space-between;
@@ -89,7 +46,7 @@ body {
   z-index: 100;
 }
 
-.header::before {
+.Main header::before {
   content: '';
   position: absolute;
   top: 0;
@@ -100,7 +57,7 @@ body {
   transition: .5s ease-in;
 }
 
-.header__scroll {
+.Main header__scroll {
   background-image: linear-gradient(60deg, #00000022, #00000033);
   backdrop-filter: blur(5px);
   border-bottom: 2px solid #ffffff22;
@@ -108,45 +65,34 @@ body {
 }
 
 
-.header:hover::before {
+.Main header:hover::before {
   left: 100%;
 }
 
-.logo {
+.Main .logo {
   font-size: 1.5rem;
   font-weight: 600;
   cursor: default;
 }
 
-.navbar a {
+.Main .navbar a {
   margin-left: 35px;
   transition: .3s;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
-.navbar a:hover {
+.Main .navbar a:hover {
   color: #0d6efd;
 }
 
-h1,
-h2 {
-  line-height: 1.2;
-  letter-spacing: 1.5px;
-}
-
-h1 {
-  font-size: clamp(15px, 4.4vw, 75px);
-}
-
 .Main #Render {  
-  aspect-ratio: 1;
-  height: 100vh;
-  position: relative;
-  z-index: 0;
+  aspect-ratio: 1;  
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 45%;
 }
 
-
-.header .navbar a:hover {
+.Main header .navbar a:hover {
   background: #060A33;
   box-shadow: 0 0 5px #060A33,
     0 0 25px #060A33,
@@ -154,58 +100,20 @@ h1 {
     0 0 200px #060A33;
 }
 
-.btn {
-  padding-block: 1.25rem;
-  width: clamp(100px, 20vw, 350px);
-  color: #fff;
-  font-weight: 700;
-  border-radius: 0;
-  overflow: hidden;
-  position: relative;
-  outline: none;
-  border: 1px solid #fff;
-  background-color: transparent;
-  transition: 0.3s;
-  margin-left: 20px;
-  font-size: 1rem;
-  line-height: 1.5;
-}
 
-.btn::before {
-  content: "";
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(120deg, transparent, #fff, transparent);
-  transform: translateX(-100%);
-  transition: 0.6s;
-  position: absolute;
-}
-
-.btn:hover {
-  background-color: transparent;
-  border: 1px solid #101A88;
-  box-shadow: 0 0 20px 5px #101A88;
-}
-
-.btn:hover::before {
-  transform: translateX(100%);
-}
-
-.industries {
+.Main .industries {
   height: 80vh;
   width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: 50px;
+  row-gap: 4rem;
   padding-inline: 5%;
   scroll-snap-align: start;
 }
 
-.industries h2 {
-  font-size: 2.25rem;
+.Main .industries h2 {
+  font-size: 2rem;
   grid-column: 1 / -1;
   justify-self: center;
 }
@@ -213,7 +121,7 @@ h1 {
 .Main .card {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 2rem;
   border-radius: 20px;
   box-shadow: -1rem 0 3rem #ffffff05;
   transition: 0.4s ease-in;
@@ -302,17 +210,12 @@ h1 {
   list-style-type: disc;
 }
 
-.title {
-  color: white;
-  font-weight: 500;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-#menu-icon {
-  font-size: 2.25rem;
-  color: #fff;
-  display: none;
+.Main .card .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .calendar {
@@ -456,140 +359,9 @@ header .current-date {
   }
 }
 
-
-@media(max-width: 992px) {
-  html {
-    font-size: 95%;
-  }
-
-  body {
-    padding-inline: 25px;
-  }
-
-  .header {
-    padding: 1.25rem 4%;
-  }
-
-  .card {
-    margin-left: -20px;
-    padding: 15px;
-  }
-
-  .calendar {
-    margin-top: 50px;
-  }
-
-  .wrapper {
-    width: 100vw;
-  }
-
-  .calendar-body .days button {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-@media(max-width: 800px) {
-  html {
-    font-size: 90%;
-  }
-
-  .wrapper {
-    min-width: 100%;
-  }
-
-  .industries {
-    padding-inline: 0;
-    row-gap: 30px;
-  }
-
-}
-
-@media (max-width: 768px) {
-  html {
-    font-size: 80%;
-  }
-
-  .core {
-    justify-content: center;
-    column-gap: 30px;
-  }
-
-  #menu-icon {
-    display: block;
-  }
-
-  .navbar {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    padding-inline: 4%;
-    display: none;
-  }
-
-  .navbar.active {
-    display: block;
-  }
-
-  .navbar a {
-    display: block;
-    margin: 1.5rem 0;
-  }
-
-  .nav-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 300px;
-    background-image: linear-gradient(60deg, #00000022, #00000033);
-    backdrop-filter: blur(30px);
-    border-bottom: 2px solid #ffffff22;
-    z-index: 99;
-    display: none;
-  }
-
-  .nav-bg.active {
-    display: block;
-  }
-
-  .btn {
-    padding-block: clamp(5px, 1.3vh, 10px);
-    margin-left: 0;
-  }
-
-}
-
-@media(max-width: 560px) {
-  html {
-    font-size: 70%;
-  }
-
-  .text-block {
-    row-gap: 20px;
-  }
-
-  .industries {
-    column-gap: 10px;
-    margin-block: 20px;
-  }
-}
-
-
-@media (max-width: 450px) {
-  html {
-    font-size: 55%;
-  }
-
-  .core {
-    column-gap: 10px;
-  }
-}
-
 .Main ul.offer {
   list-style-type: disc;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .Main ul.offer li {

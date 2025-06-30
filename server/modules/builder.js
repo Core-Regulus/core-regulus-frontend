@@ -15,9 +15,11 @@ function cssOnly(isMobile) {
     if (pt.includes('node_modules')) return false;
     const bn = path.basename(file);
     const cm = bn.indexOf('-mobile') != -1;
-    if (cm && isMobile) 
-      return true;
-    return !cm;
+    if (isMobile) {
+      return cm;
+    } else {
+      return !cm;
+    }          
   };
 }
 

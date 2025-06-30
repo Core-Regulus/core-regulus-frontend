@@ -148,6 +148,7 @@ export class CorePage extends Page {
   #orbitRings;
   #controls;
   #scene;
+  #timeout = null;
 
   #animate = () => {
     requestAnimationFrame(this.#animate);
@@ -168,14 +169,21 @@ export class CorePage extends Page {
     this.#renderer.render(this.#scene, this.#camera);
   }
   
-
-  #updateRendererSize = () => {
-    const renderDom = this.components.render;
+  #updateRendererSize = () => {    
+    const renderDom = this.components.render
     const width = renderDom.clientWidth;
     const height = renderDom.clientHeight;
     this.#renderer.setSize(width, height);
     this.#camera.aspect = width / height;
-    this.#camera.updateProjectionMatrix();
+    this.#camera.updateProjectionMatrix();    
+  }
+
+  #updateRendererSizeTimeout = () => {
+    if (this.#timeout != null) return;
+    this.#timeout = setTimeout(() => {
+      this.#updateRendererSize();
+      this.#timeout = null;
+    }, 1000);
   }
 
   #initRenderer() {
@@ -264,12 +272,12 @@ export class CorePage extends Page {
   
   #initScroll() {
     window.addEventListener("scroll", this.#scrollHandler);
-    window.addEventListener('resize', this.#updateRendererSize);
+    window.addEventListener('resize', this.#updateRendererSizeTimeout);
   }
 
   #releaseScroll() {
     window.removeEventListener("scroll", this.#scrollHandler);
-    window.removeEventListener('resize', this.#updateRendererSize);
+    window.removeEventListener('resize', this.#updateRendererSizeTimeout);
   }
 
   
