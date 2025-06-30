@@ -11,6 +11,7 @@
 
 .Main .core .text-block {
   white-space: wrap;
+  padding-left: 3rem;
 }
 
 .Main .industries {
@@ -32,7 +33,11 @@
 
 .Main .card .header {
   width: 40%;
-  gap: 2rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
+}
+
+.Main .card ul li {
+  font-size: 1.3rem;
 }
