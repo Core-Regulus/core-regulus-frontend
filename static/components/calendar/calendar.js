@@ -66,6 +66,7 @@ class Calendar extends ComponentRoot {
   async componentReady() {
     this.#channel.url = 'https://api.core-regulus.com/calendar/days'
     const cdata = await this.#channel.send({
+      "dateEnd": "2025-07-01T00:00:00Z",
       "dateEnd": "2025-07-31T00:00:00Z"
     });
     console.log(cdata);
