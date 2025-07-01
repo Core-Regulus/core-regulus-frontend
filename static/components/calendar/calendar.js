@@ -1,12 +1,12 @@
 import { ComponentRoot } from 'https://components.int-t.com/core/componentRoot/componentRoot.js';
-
-
+import { JSONFetchChannel } from 'https://components.int-t.com/core/jsonFetchChannel/jsonFetchChannel.js';
 
 class Calendar extends ComponentRoot {
   #date = new Date();
   #currYear = this.#date.getFullYear();
   #currMonth = this.#date.getMonth();
   #months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  #channel = new JSONFetchChannel();
   
   #renderCalendar() {
     const firstDayOfMonth = new Date(this.#currYear, this.#currMonth, 1).getDay();
@@ -63,8 +63,13 @@ class Calendar extends ComponentRoot {
     super();
   }
 
-  componentReady() {
-    this.#renderCalendar();
+  async componentReady() {
+    this.#channel.url = 'https://api.core-regulus.com/calendar/days'
+    const cdata = await this.#channel.send({
+      "dateEnd": "2025-07-31T00:00:00Z"
+    });
+    console.log(cdata);
+    this.#renderCalendar(cdata);
     this.#renderButtons();
   }
 }
