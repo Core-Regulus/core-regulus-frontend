@@ -1,5 +1,5 @@
-import 'https://components.int-t.com/core/application/application.js';
-import 'https://components.int-t.com/core/router/router.js';
+import 'https://components.int-t.com/current/core/application/application.js';
+import 'https://components.int-t.com/current/core/router/router.js';
 import './pages/main/main.js';
 
 export const routes = [

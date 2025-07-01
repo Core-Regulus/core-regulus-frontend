@@ -1,12 +1,29 @@
-import { ComponentRoot } from 'https://components.int-t.com/core/componentRoot/componentRoot.js';
-import { JSONFetchChannel } from 'https://components.int-t.com/core/jsonFetchChannel/jsonFetchChannel.js';
+import { ComponentRoot } from 'https://components.int-t.com/current/core/componentRoot/componentRoot.js';
 
 class Calendar extends ComponentRoot {
   #date = new Date();
   #currYear = this.#date.getFullYear();
   #currMonth = this.#date.getMonth();
   #months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-  #channel = new JSONFetchChannel();
+  #channel;
+
+  async #requestTime() {
+    const cdata = await this.#channel.send({
+      "dateStart": "2025-07-01T00:00:00Z",
+      "dateEnd": "2025-07-31T00:00:00Z"
+    })
+    console.log(cdata);
+    this.#renderCalendar(cdata);
+  }
+
+  set channel(value) {
+    this.#channel = value;
+    this.#requestTime();
+  }
+
+  get channel() {
+    return this.#channel;
+  }
   
   #renderCalendar() {
     const firstDayOfMonth = new Date(this.#currYear, this.#currMonth, 1).getDay();
@@ -63,14 +80,7 @@ class Calendar extends ComponentRoot {
     super();
   }
 
-  async componentReady() {
-    this.#channel.url = 'https://api.core-regulus.com/calendar/days'
-    const cdata = await this.#channel.send({
-      "dateEnd": "2025-07-01T00:00:00Z",
-      "dateEnd": "2025-07-31T00:00:00Z"
-    });
-    console.log(cdata);
-    this.#renderCalendar(cdata);
+  async componentReady() {    
     this.#renderButtons();
   }
 }
