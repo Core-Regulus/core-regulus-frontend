@@ -1,7 +1,7 @@
 .Main main {
   width: 100%;
   height: 100%;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior:smooth;  
   overflow-y: scroll;              
   scrollbar-width: none;  
@@ -17,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;  
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   height: 100vh;
 }
 
@@ -26,27 +26,19 @@
   flex-direction: column;
   padding-left: 6rem;  
   white-space: nowrap;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
+  row-gap: 1rem;
 }
 
-.Main .core .text-block p {
-  line-height: 1.35;
-  font-size: 1.31rem;
+.Main .core .text-block .btn{
+  align-self: center;
 }
-
-.Main .core .text-block .btn {
-  margin-top: 2rem;  
-}
-
 
 .Main header {
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  padding: 2rem 4rem;
+  padding: 1rem 4rem;
   display: flex;
   background-color: transparent;
   justify-content: space-between;
@@ -65,7 +57,7 @@
   transition: .5s ease-in;
 }
 
-.Main header__scroll {
+.Main header {
   background-image: linear-gradient(60deg, #00000022, #00000033);
   backdrop-filter: blur(5px);
   border-bottom: 2px solid #ffffff22;
@@ -110,14 +102,14 @@
 
 
 .Main .industries {
-  height: 100vh;
+  height: 65vh;
   width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: 4rem;  
-  padding-top: 14rem;
-  scroll-snap-align: start;  
+  scroll-snap-align: end;  
+  row-gap: 4rem;
+  padding-inline: 5%;
 }
 
 .Main .industries h2 {
@@ -129,21 +121,22 @@
 .Main .card {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   border-radius: 20px;
-  box-shadow: -1rem 0 3rem #ffffff05;
+  box-shadow: -1rem 0 3rem #00000055;
   transition: 0.4s ease-in;
   margin-left: -50px;
   position: relative;
   left: 0px;
-  background-image: linear-gradient(135deg, #ffffff18, #101A8822 70%);
+  background-image: linear-gradient(115deg, #ffffff05, #101A8855 90%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   justify-content: center;
   align-items: center;
   padding: 30px;
-  height: 50%;
+  height: 75%;
   min-height: 300px;
+  border: 2px solid #ffffff22;
 }
 
 
@@ -191,7 +184,7 @@
   color: #101A88;
 }
 
-.Main .card:hover~ {
+.Main .card:hover ~ .card{
   position: relative;
   left: 25px;
   transition: 0.4s ease-out;
@@ -219,7 +212,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .Main .card .title {
@@ -238,10 +231,15 @@
 .Main ul.offer {
   list-style-type: disc;
   font-size: 1.5rem;
+  padding-top: 1.6rem;
+
 }
 
 .Main ul.offer li {
-  list-style: disc;
+  line-height: 1.25;
+  margin-top: 0.45rem;
+  font-size: 1.3rem;
+  list-style-type: disc;
 }
 
 .Main #schedule {
@@ -255,4 +253,30 @@
   flex-direction: column;
   gap: 3rem;
   padding: 0 20rem;
+}
+
+.Main #schedule::before, #schedule::after{
+  content: "";
+  position: relative;
+  z-index: -1;
+  border-radius: 50%;
+  background-image: radial-gradient(#101A88, #060A33 50%);
+  opacity: 0.8;
+  width: 35vh;
+  aspect-ratio: 1;
+  box-shadow: 0 0 5px #060A33,
+                  0 0 25px #060A33,
+                  0 0 50px #060A33,
+                  0 0 200px #060A33,
+                  0 0 400px #060A33;
+}
+
+.Main #schedule::before{
+  top: 40%;
+  left: 40%;
+}
+
+.Main #schedule::after{
+  bottom: 30%;
+  right: 40%;
 }
