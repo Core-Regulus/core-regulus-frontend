@@ -25,7 +25,30 @@ i-calendar .hours {
   border: 1px solid #ffffff33;
   border-radius: 10px;
   grid-area: content;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+}
 
+i-calendar .hours button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+i-calendar .hours button.active {
+  background-color: #101A88;
+}
+
+i-calendar .hours button:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+i-calendar .hours button:active {
+  background-color: #060A33;
+  color: #fff;
+  outline: 1px solid #ffffff22;
 }
 
 i-calendar .wrapper .header {
