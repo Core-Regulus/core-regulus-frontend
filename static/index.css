@@ -38,7 +38,10 @@ body {
   scroll-behavior: smooth;
   height: 100vh;
   overflow-y: hidden;  
+  font-weight: 500;
 }
+
+
 
 h1,
 h2 {
@@ -47,11 +50,17 @@ h2 {
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3.5rem;
 }
 
+.strong{
+  display: inline-block;
+  background-color:#101A88;
+}
+
+
 .btn {
-  padding-block: 1.25rem;
+  padding-block: 1rem;
   width: clamp(100px, 20vw, 350px);
   color: #fff;
   font-weight: 700;
@@ -62,11 +71,9 @@ h1 {
   border: 1px solid #fff;
   background-color: transparent;
   transition: 0.3s;
-  margin-left: 20px;
-  font-size: 1rem;
   line-height: 1.5;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.rem;
 }
 
 .btn::before {
