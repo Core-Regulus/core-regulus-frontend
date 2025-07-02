@@ -29,10 +29,6 @@
   row-gap: 1rem;
 }
 
-.Main .core .text-block .btn{
-  align-self: center;
-}
-
 .Main header {
   position: fixed;
   width: 100%;
@@ -255,7 +251,7 @@
   padding: 0 20rem;
 }
 
-.Main #schedule::before, #schedule::after{
+.Main #schedule::before, .Main #schedule::after{
   content: "";
   position: relative;
   z-index: -1;

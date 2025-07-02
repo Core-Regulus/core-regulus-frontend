@@ -1,5 +1,6 @@
 i-calendar {
   width: 100%;
+  display: block;
 }
 
 i-calendar .wrapper {
