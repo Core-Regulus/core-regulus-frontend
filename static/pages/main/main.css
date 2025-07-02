@@ -53,7 +53,7 @@
   transition: .5s ease-in;
 }
 
-.Main header {
+.Main header.header-scroll {
   background-image: linear-gradient(60deg, #00000022, #00000033);
   backdrop-filter: blur(5px);
   border-bottom: 2px solid #ffffff22;

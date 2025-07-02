@@ -57,20 +57,20 @@ export class CorePage extends Page {
 
     
   #scrollHandler = () => {
-    const scrollPos = window.scrollY
+    const scrollPos = this.components.content.scrollTop;
     if (scrollPos > 100) {
-      this.components.header.classList.add("header__scroll")
+      this.components.header.classList.add("header-scroll")
     } else {
-      this.components.header.classList.remove("header__scroll")
+      this.components.header.classList.remove("header-scroll")
     }    
   }
   
   #initScroll() {
-    window.addEventListener("scroll", this.#scrollHandler);    
+    this.components.content.addEventListener("scroll", this.#scrollHandler);    
   }
 
   #releaseScroll() {
-    window.removeEventListener("scroll", this.#scrollHandler);
+    this.components.content.removeEventListener("scroll", this.#scrollHandler);
   }
 
   #getCalendarButtonState = (_, date, calendarData) => {
