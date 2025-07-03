@@ -34,8 +34,8 @@ class Calendar extends ComponentRoot {
 
   async #requestData(dateStart, dateEnd) {    
     const cdata = await this.#channel.send({
-      "dateStart": this.#getLocalDateTime(dateStart),
-      "dateEnd": this.#getLocalDateTime(dateEnd)
+      "dateStart": this.#getISODate(dateStart),
+      "dateEnd": this.#getISODate(dateEnd)
     });    
     return this.#hashData(cdata);    
   }
@@ -194,6 +194,13 @@ class Calendar extends ComponentRoot {
     const hs = (tDate.getHours().toString()).padStart(2, '0');
     const ms = (tDate.getMinutes().toString()).padStart(2, '0');
     return `${hs}:${ms}`;
+  }
+
+  #getISODate(date) {    
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dt = date.getDate().toString().padStart(2, '0');        
+    return `${year}-${month}-${dt}`;
   }
 
   #getLocalDateTime(date) {
