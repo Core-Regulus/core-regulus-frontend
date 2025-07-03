@@ -251,7 +251,7 @@
   padding: 0 20rem;
 }
 
-.Main #schedule::before, .Main #schedule::after{
+/*.Main #schedule::before, .Main #schedule::after{
   content: "";
   position: relative;
   z-index: -1;
@@ -275,4 +275,30 @@
 .Main #schedule::after{
   bottom: 30%;
   right: 40%;
+}*/
+
+.Main .calendar-slider {
+  display: flex;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overflow-x: hidden;  
+}
+
+.Main i-calendar {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.Main .meet-info {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.Main .meet-status {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
