@@ -1,3 +1,7 @@
+.Main main {
+  scroll-snap-type: y mandatory;
+}
+
 .Main .core {  
   flex-direction: column;
   justify-content: center; 
@@ -21,6 +25,7 @@
   grid-template-columns: auto;
   padding: 6rem 2rem 0 2rem;
   row-gap: 1rem; 
+  scroll-snap-align: start;
 }
 
 .Main .card {
