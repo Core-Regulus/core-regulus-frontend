@@ -48,6 +48,8 @@
           <ul>
             <li>EASA Part-IS</li>
             <li>Microsoft Sharepoint</li>
+            <li>Microsoft Automation</li>
+            <li>Backup and Versioning Services</li>            
             <li>Failover data clusters</li>
           </ul>
         </article>
@@ -77,7 +79,33 @@
       </section>
       <section id="schedule">
         <h2>Schedule a Meeting</h2>
-        <i-calendar name="calendar"></i-calendar>
+        <div class="calendar-slider" name="calendar-slider">
+          <i-calendar name="calendar"></i-calendar>
+          <form class="meet-info">
+            <div claa="meet-header">
+              <button type="button"  name="back-to-Schedule">Back</button>
+              <span class="meet-name"></span>
+            </div>            
+            <label>
+              <span>Your Name</span>
+              <input name="guest-name"/>
+            </label>
+            <label>
+              <span>e-mail</span>
+              <input name="guest-email" />
+            </label>
+            <label>
+              <span>description</span>
+              <textarea name="guest-description"></textarea>
+            </label>
+            <button type="button" class="btn" name="confirm-meet">Confirm</button>
+          </form>
+          <div class="meet-status">
+            <span>Meeting is created</span>
+            <span class="meet-name"></span>
+            <span>Check your email if you want to reschedule or cancel the meet</span>
+          </div>
+        </div>        
       </section>
     </main>  
 </core-page>

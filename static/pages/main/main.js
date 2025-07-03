@@ -56,23 +56,25 @@ export class CorePage extends Page {
   }
 
     
+  #scrollTimeout = null;
   #scrollHandler = () => {
-    const scrollPos = this.components.content.scrollTop;
-    if (scrollPos > 100) {
-      this.components.header.classList.add("header-scroll")
-    } else {
-      this.components.header.classList.remove("header-scroll")
-    }    
+    if (this.#scrollTimeout != null) return;
+    this.#scrollTimeout = setTimeout(() => {
+      const scrollPos = this.components.content.scrollTop;
+      if (scrollPos > 100) {
+        this.components.header.classList.add("header-scroll")
+      } else {
+        this.components.header.classList.remove("header-scroll")
+      } 
+      this.#scrollTimeout = null;
+    }, 200);
   }
   
   #initScroll() {
-    this.components.content.addEventListener("scroll", this.#scrollHandler);    
+    this.components.content.onscroll = this.#scrollHandler;
   }
 
-  #releaseScroll() {
-    this.components.content.removeEventListener("scroll", this.#scrollHandler);
-  }
-
+  
   #getCalendarButtonState = (_, date, calendarData) => {
     const isoDate = getLocalDate(date);
     const slotDate = calendarData[isoDate];
@@ -103,19 +105,37 @@ export class CorePage extends Page {
     calendar.slots = slotDate.slots;
   }
 
+  #scrollToScheduleMeet() {    
+    this.components.calendarSlider.scrollTo({ left: 0, behavior: "smooth" });
+  }
+
+  #scrollToMeetInfo() {
+    const sval = this.components.calendarSlider.clientWidth;
+    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
+  }
+
+  #scrollToMeetStatus() {
+    const sval = this.components.calendarSlider.clientWidth * 2;
+    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
+  }
+
   #selectSlot = (_, date) => {    
     const isoDate = date.toISOString();    
     if (this.#currentSlot == isoDate) {
-      console.log(`slot confirmed ${date}`);
-      return;
+      this.#scrollToMeetInfo();
     }    
     this.#currentSlot = isoDate;        
   }
-  
-  disconnectedCallback() {
-    this.#releaseScroll();
-  }
 
+  #initCalendarButtons() {
+    this.components.backToSchedule.onclick = () => {
+      this.#scrollToScheduleMeet();
+    };
+    this.components.confirmMeet.onclick = () => {
+      this.#scrollToMeetStatus();
+    };
+  }
+  
   componentReady() {    
     this.#initScroll();
     this.#initRenderer();
@@ -124,6 +144,8 @@ export class CorePage extends Page {
     this.components.calendar.onSelectDate = this.#selectDate;
     this.components.calendar.onSelectSlot = this.#selectSlot;    
     this.components.calendar.channel = this.#channel;
+    this.#initCalendarButtons();
+
   }
 }
 
