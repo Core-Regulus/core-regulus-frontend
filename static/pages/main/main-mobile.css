@@ -1,3 +1,13 @@
+.Main main {
+  width: 100%;
+  height: 100%;
+  scroll-snap-type: y mandatory;
+  scroll-behavior:smooth;  
+  overflow-y: scroll;              
+  scrollbar-width: none;  
+  -ms-overflow-style: none;
+}
+
 .Main .core {  
   flex-direction: column;
   justify-content: center; 
