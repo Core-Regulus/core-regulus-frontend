@@ -4,8 +4,15 @@ import '../../components/calendar/calendar.js';
 import '../../components/sphere/sphere.js'
 
 class CalendarChannel extends JSONFetchChannel {
-  get url() {
-    return 'https://api.core-regulus.com/calendar/days';
+
+  async send(data) {
+    this.url = 'https://api.core-regulus.com/calendar/days';
+    return await super.send(data);
+  }
+
+  async setEvent(data) {
+    this.url = 'https://api.core-regulus.com/calendar/event';
+    return await super.send(data);
   }
 }
 
@@ -131,8 +138,17 @@ export class CorePage extends Page {
     this.components.backToSchedule.onclick = () => {
       this.#scrollToScheduleMeet();
     };
+
     this.components.confirmMeet.onclick = () => {
-      this.#scrollToMeetStatus();
+      this.components.calendar.channel.setEvent({
+        time: '2025-07-07T09:00:00Z',
+        eventName: 'test Event',
+        guestEmail: 'nemesisv@mail.ru',
+        guestName: 'Vladimir',
+        guestDescription: "Test event for testing puprose"
+      }).then(() => {
+        this.#scrollToMeetStatus();
+      });      
     };
   }
   
