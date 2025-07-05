@@ -144,7 +144,7 @@ class Calendar extends ComponentRoot {
 
     let k = 1;
     for (let i = firstDayOfMonth; i > 0; i--) {
-      liTag += `<button class="inactive" style="--i:${k}; --j:${21 + k};">${lastDateOfLastMonth - i + 1}</button>`;
+      liTag += `<button class="dis" style="--i:${k}; --j:${21 + k};">${lastDateOfLastMonth - i + 1}</button>`;
       k++;
     }
 
@@ -157,7 +157,7 @@ class Calendar extends ComponentRoot {
     }
 
     for (let i = lastDayOfMonth; i < 6; i++) {
-      liTag += `<button class="inactive">${i - lastDateOfMonth + 1}</button>`
+      liTag += `<button class="dis">${i - lastDateOfMonth + 1}</button>`
     }
     
     this.components.currentDate.innerText = `${this.#months[this.#currMonth]} ${this.#currYear}`;
@@ -229,6 +229,9 @@ class Calendar extends ComponentRoot {
     this.components.backToSchedule.onclick = () => {
       this.components.wrapper.classList.remove("conv");
     };
+    this.components.confirmMeet.onclick = () => {
+         this.components.wrapper.classList.add("conv2")       
+      }
   }
   
   get url() { return import.meta.resolve('./calendar.html') }

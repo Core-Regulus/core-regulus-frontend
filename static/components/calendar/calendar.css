@@ -18,7 +18,7 @@ i-calendar .wrapper {
     "body content"
     "body content"
     "body content";  
-  overflow: hidden;  
+  overflow: hidden;
 }
 
 
@@ -133,8 +133,9 @@ i-calendar .header .current-date {
   font-size: 1.65rem;
 }
 
-i-calendar .days button.inactive {
-  color: #818080;
+
+i-calendar .days button.dis {
+  color: #6e6e6e;
 }
 
 i-calendar .days button.active {
@@ -150,45 +151,6 @@ i-calendar .days button:not(.inactive):active {
   background-color: #060A33;
   color: #fff;
   outline: 1px solid #ffffff22;
-}
-
-
-.wrapper .bg-animate{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 110%;
-  height:110%;
-  background: linear-gradient(45deg, #081b29, #0ef);
-  transform: rotate(50deg) skewY(40deg);
-  transition: 1.5s ease;
-  transform-origin: bottom right;
-  z-index: -2;
-  transition-delay: .72s;
-  display: none;
-}
-
-.wrapper.conv .bg-animate{
-  transform: rotate(0) skewY(0deg);
-}
-
-.wrapper .bg-animate2{
-  position: absolute;
-  top: 100%;
-  left: 250px;
-  width: 110%;
-  height: 110%;
-  background-color: #081b29;
-  transform: rotate(0) skewY(0);
-  transform-origin: bottom left;
-  transition: 1.5s ease;
-  z-index: -1;
-  display: none;
-}
-
-.wrapper.conv .bg-animate2 {
-  transform: rotate(-8deg) skewY(-30deg);
-  transition-delay: 1.6s;
 }
 
 .wrapper .current-date, 
@@ -229,7 +191,7 @@ i-calendar .days button:not(.inactive):active {
   transition-delay: calc(.1s * var(--i));
 }
 
-.wrapper form {
+.wrapper form, .wrapper .meet-status {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -277,14 +239,6 @@ i-calendar .days button:not(.inactive):active {
   font-size: 1.5rem;
 }
 
-.wrapper form .input_box {
-  height: 50px;
-}
-
-.wrapper form textarea {
-  max-height: 180px;
-}
-
 .wrapper form .btn{
   padding-block: 1rem;
   font-size: .8rem;
@@ -298,6 +252,7 @@ i-calendar .days button:not(.inactive):active {
   gap: 0.3rem;
   width: 100%;
   box-shadow: inset 0 0px 0 0 rgba(255, 255, 255, 0.5), 0 -1px 20px 0 rgba(187, 155, 255, 0.15), 0 -1px 5px 0 rgba(233, 223, 255, 0.3);
+  height: 50px;
   border-radius: 10px; 
 }
 
@@ -312,6 +267,8 @@ i-calendar .days button:not(.inactive):active {
   border-radius: 10px; 
   resize: none;  
   border: 1px solid #ffffff22;
+  max-height: 180px;
+  backdrop-filter: blur(10px);
 }
 
 .input_box input {
@@ -339,7 +296,6 @@ i-calendar .days button:not(.inactive):active {
     0px 0px 100px #101A8888,
     0px 0px 100px #BFC3C933;
 }
-
 
 .input_box label {
   position: absolute;
@@ -373,12 +329,13 @@ i-calendar .days button:not(.inactive):active {
   color: #060A33;
 }
 
-.wrapper form {
-  transform: translateX(-100%);
+.wrapper form{
   opacity: 0;
   filter: blur(10px);
   transition: 1.7s ease;
   transition-delay: calc(.1s * var(--i));
+  transform: translateX(-100%);
+  z-index: 3;
 }
 
 .wrapper.conv form {
@@ -388,7 +345,48 @@ i-calendar .days button:not(.inactive):active {
   transition-delay: calc(.1s * var(--j));
 }
 
+.wrapper.conv2 form{
+  opacity: 0;
+  filter: blur(10px);
+  transition: 1.7s ease-in-out;
+  transition-delay: calc(.1s * var(--i));
+  transform: translateX(100%);
+}
 
-.meet-status{
-  display: none;
+.wrapper .meet-status{
+  opacity: 0;
+  filter: blur(10px);
+  transition: 1.7s ease;
+  transition-delay: calc(.1s * var(--i));
+  transform: translateX(-100%);
+}
+
+.wrapper.conv2 .meet-status{
+  transform: translateX(-50%);
+  opacity: 1;
+  filter: blur(0);
+  transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.conv2 .meet-status .btn-container {
+  display: flex;
+  column-gap: 0.6rem;
+  width: 100%;
+}
+
+.btn-container .btn{
+  width: 50%;
+  flex-basis: 50%;
+  padding-block: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.meet-status p {
+  font-size: 1rem;
+  color: #fff;
+  background-image: linear-gradient(135deg, #ffffff15, #ffffff22);
+  border-radius: 10px;
+  border: 1px solid #ffffff33;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
 }
