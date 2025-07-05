@@ -1,7 +1,7 @@
 .Main main {
   width: 100%;
   height: 100%;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior:smooth;  
   overflow-y: scroll;              
   scrollbar-width: none;  
@@ -17,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;  
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   height: 100vh;
 }
 
@@ -119,12 +119,9 @@
   flex-direction: column;
   gap: 1rem;
   border-radius: 20px;
-  box-shadow: -1rem 0 3rem #00000055;
-  transition: 0.4s ease-in;
-  margin-left: -50px;
   position: relative;
   left: 0px;
-  background-image: linear-gradient(115deg, #ffffff05, #101A8855 90%);
+  background-image: linear-gradient(145deg, #ffffff18 0%, #101A8845 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   justify-content: center;
@@ -133,8 +130,9 @@
   height: 75%;
   min-height: 300px;
   border: 2px solid #ffffff22;
+  box-shadow: inset 0 0px 0 0 rgba(255, 255, 255, 0.5), 0 -1px 20px 0 rgba(187, 155, 255, 0.15), 0 -1px 5px 0 rgba(233, 223, 255, 0.3);
+  transition: 0.4s ease-in;
 }
-
 
 .Main .card:nth-child(2) {
   --color: 190.14 100% 86.08%;
@@ -251,7 +249,7 @@
   padding: 0 20rem;
 }
 
-/*.Main #schedule::before, .Main #schedule::after{
+.Main #schedule::before, .Main #schedule::after{
   content: "";
   position: relative;
   z-index: -1;
@@ -275,9 +273,10 @@
 .Main #schedule::after{
   bottom: 30%;
   right: 40%;
-}*/
+} 
+ 
 
-.Main .calendar-slider {
+/* .Main .calendar-slider {
   display: flex;
   width: 100%;
   scroll-snap-type: x mandatory;
@@ -301,4 +300,4 @@
   width: 100%;
   flex-shrink: 0;
   scroll-snap-align: start;
-}
+} */

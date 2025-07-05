@@ -1,7 +1,9 @@
-<div class="wrapper">
+<div class="wrapper" name="wrapper">
+  <span class="bg-animate"></span>
+  <span class="bg-animate2"></span>
   <div class="header">
-    <p class="current-date" name="current-date"></p>
-    <div class="icons">
+    <p class="current-date" name="current-date" style="--i:0; --j:21;"></p>
+    <div class="icons" style="--i:0; --j:21;">
       <button id="prev" class="material-simbols-rounded" name="prev">
         <i class='bxr  bx-chevron-left'></i>
       </button>
@@ -12,15 +14,38 @@
   </div>
   <article class="calendar-body">
     <ul class="weeks">
-      <li>Sun</li>
-      <li>Mon</li>
-      <li>Tue</li>
-      <li>Wed</li>
-      <li>Thu</li>
-      <li>Fri</li>
-      <li>Sat</li>
+      <li style="--i:0; --j:21;">Sun</li>
+      <li style="--i:1; --j:22;">Mon</li>
+      <li style="--i:2; --j:23;">Tue</li>
+      <li style="--i:3; --j:24;">Wed</li>
+      <li style="--i:4; --j:25;">Thu</li>
+      <li style="--i:5; --j:26;">Fri</li>
+      <li style="--i:5; --j:26;">Sat</li>
     </ul>
     <div class="days" name="days"></div>
   </article>
-  <div class="hours" name="hours"></div>
+  <div style="--i:6; --j:27;" class="hours" name="hours"></div>
+  <form style="--i:1; --j:3;" class="meet-info">
+    <div class="meet-header">
+      <button type="button"  name="back-to-Schedule"><i class='bxr bx-chevrons-left'></i>Back</button>
+      <span class="meet-name">Test test</span>
+    </div>
+    <div class="input_box">
+      <input placeholder="Your-name" type="text" name="guest-name" required/>
+      <!-- <label>Your name</label> -->
+      <i class="bx bxs-user"></i>
+    </div>            
+    <div class="input_box">
+      <input placeholder="E-mail" type="text" required name="guest-email" />
+      <!-- <label>E-mail</label> -->
+      <i class="bx bxs-envelope"></i>
+    </div>
+    <textarea placeholder="Description" name="guest-description" id="desc"></textarea>
+    <button type="button" class="btn" name="confirm-meet">Confirm</button>
+  </form>
+  <div class="meet-status">
+    <span>Meeting is created</span>
+    <span class="meet-name"></span>
+    <span>Check your email if you want to reschedule or cancel the meet</span>
+  </div>
 </div>

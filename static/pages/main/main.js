@@ -112,33 +112,15 @@ export class CorePage extends Page {
     calendar.slots = slotDate.slots;
   }
 
-  #scrollToScheduleMeet() {    
-    this.components.calendarSlider.scrollTo({ left: 0, behavior: "smooth" });
-  }
 
-  #scrollToMeetInfo() {
-    const sval = this.components.calendarSlider.clientWidth;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
-
-  #scrollToMeetStatus() {
-    const sval = this.components.calendarSlider.clientWidth * 2;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
 
   #selectSlot = (_, date) => {    
     const isoDate = date.toISOString();    
-    if (this.#currentSlot == isoDate) {
-      this.#scrollToMeetInfo();
-    }    
     this.#currentSlot = isoDate;        
   }
 
-  #initCalendarButtons() {
-    this.components.backToSchedule.onclick = () => {
-      this.#scrollToScheduleMeet();
-    };
 
+  #initCalendarButtons() {
     this.components.confirmMeet.onclick = () => {
       this.components.calendar.channel.setEvent({
         time: '2025-07-07T09:00:00Z',
@@ -147,7 +129,7 @@ export class CorePage extends Page {
         guestName: 'Vladimir',
         guestDescription: "Test event for testing puprose"
       }).then(() => {
-        this.#scrollToMeetStatus();
+        // this.#scrollToMeetStatus();
       });      
     };
   }
