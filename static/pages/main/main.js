@@ -81,6 +81,20 @@ export class CorePage extends Page {
     this.components.content.onscroll = this.#scrollHandler;
   }
 
+  #goToMeetInfo() {
+    this.components.schedulePage.classList.remove("meet-status");
+    this.components.schedulePage.classList.add("meet-info");
+  }
+
+  #goToMeetStatus() {
+    this.components.schedulePage.classList.remove("meet-info");
+    this.components.schedulePage.classList.add("meet-status");
+  }
+
+  #goToSchedule() {
+    this.components.schedulePage.classList.remove("meet-status");
+    this.components.schedulePage.classList.remove("meet-info");
+  }
   
   #getCalendarButtonState = (_, date, calendarData) => {
     const isoDate = getLocalDate(date);
@@ -116,23 +130,32 @@ export class CorePage extends Page {
 
   #selectSlot = (_, date) => {    
     const isoDate = date.toISOString();    
-    this.#currentSlot = isoDate;        
+    this.#currentSlot = isoDate;
+    this.#goToMeetInfo();    
   }
+  
+  #initCalendarButtons() {  
+    this.components.backToSchedule.onclick = () => {
+      this.#goToSchedule();
+    };
+
+    this.components.confirmMeet.onclick = () => {
+      this.#goToMeetStatus();
+    }
 
 
-  // #initCalendarButtons() {
-  //   this.components.confirmMeet.onclick = () => {
-  //     this.components.calendar.channel.setEvent({
-  //       time: '2025-07-07T09:00:00Z',
-  //       eventName: 'test Event',
-  //       guestEmail: 'nemesisv@mail.ru',
-  //       guestName: 'Vladimir',
-  //       guestDescription: "Test event for testing puprose"
-  //     }).then(() => {
-  //       // this.#scrollToMeetStatus();
-  //     });      
-  //   };
-  // }
+    /*this.components.confirmMeet.onclick = () => {
+      this.components.calendar.channel.setEvent({
+        time: '2025-07-07T09:00:00Z',
+        eventName: 'test Event',
+        guestEmail: 'nemesisv@mail.ru',
+        guestName: 'Vladimir',
+        guestDescription: "Test event for testing puprose"
+      }).then(() => {
+        this.#goToMeetStatus();
+      });      
+    };*/
+  }
   
   componentReady() {    
     this.#initScroll();
@@ -142,7 +165,7 @@ export class CorePage extends Page {
     this.components.calendar.onSelectDate = this.#selectDate;
     this.components.calendar.onSelectSlot = this.#selectSlot;    
     this.components.calendar.channel = this.#channel;
-    // this.#initCalendarButtons();
+    this.#initCalendarButtons();
 
   }
 }
