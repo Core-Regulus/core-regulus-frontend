@@ -112,45 +112,27 @@ export class CorePage extends Page {
     calendar.slots = slotDate.slots;
   }
 
-  #scrollToScheduleMeet() {    
-    this.components.calendarSlider.scrollTo({ left: 0, behavior: "smooth" });
-  }
 
-  #scrollToMeetInfo() {
-    const sval = this.components.calendarSlider.clientWidth;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
-
-  #scrollToMeetStatus() {
-    const sval = this.components.calendarSlider.clientWidth * 2;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
 
   #selectSlot = (_, date) => {    
     const isoDate = date.toISOString();    
-    if (this.#currentSlot == isoDate) {
-      this.#scrollToMeetInfo();
-    }    
     this.#currentSlot = isoDate;        
   }
 
-  #initCalendarButtons() {
-    this.components.backToSchedule.onclick = () => {
-      this.#scrollToScheduleMeet();
-    };
 
-    this.components.confirmMeet.onclick = () => {
-      this.components.calendar.channel.setEvent({
-        time: '2025-07-07T09:00:00Z',
-        eventName: 'test Event',
-        guestEmail: 'nemesisv@mail.ru',
-        guestName: 'Vladimir',
-        guestDescription: "Test event for testing puprose"
-      }).then(() => {
-        this.#scrollToMeetStatus();
-      });      
-    };
-  }
+  // #initCalendarButtons() {
+  //   this.components.confirmMeet.onclick = () => {
+  //     this.components.calendar.channel.setEvent({
+  //       time: '2025-07-07T09:00:00Z',
+  //       eventName: 'test Event',
+  //       guestEmail: 'nemesisv@mail.ru',
+  //       guestName: 'Vladimir',
+  //       guestDescription: "Test event for testing puprose"
+  //     }).then(() => {
+  //       // this.#scrollToMeetStatus();
+  //     });      
+  //   };
+  // }
   
   componentReady() {    
     this.#initScroll();
@@ -160,7 +142,7 @@ export class CorePage extends Page {
     this.components.calendar.onSelectDate = this.#selectDate;
     this.components.calendar.onSelectSlot = this.#selectSlot;    
     this.components.calendar.channel = this.#channel;
-    this.#initCalendarButtons();
+    // this.#initCalendarButtons();
 
   }
 }
