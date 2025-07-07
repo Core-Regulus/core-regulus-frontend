@@ -78,6 +78,11 @@ h1 {
   font-size: 1rem;
 }
 
+.error{
+  color: #b31212;
+  font-size: 1rem;
+}
+
 .btn::before {
   content: "";
   top: 0;

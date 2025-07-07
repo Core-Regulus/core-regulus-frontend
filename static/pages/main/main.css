@@ -101,10 +101,11 @@
   height: 65vh;
   width: 100%;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-columns: repeat(4, 1fr);
   scroll-snap-align: end;
-  row-gap: 4rem;
+  row-gap: 3rem;
+  column-gap: 1.5rem;
   padding: 0 5% 0 5%;
 }
 
@@ -121,17 +122,15 @@
   border-radius: 20px;
   position: relative;
   left: 0px;
-  background-image: linear-gradient(145deg, #ffffff18 0%, #101A8845 100%);
+  background-image: linear-gradient(145deg, #ffffff1a 0%, #101A8866 100%);  
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  padding: 30px;
-  height: 75%;
-  min-height: 300px;
+  padding: 2rem;
   border: 2px solid #ffffff22;
-  box-shadow: inset 0 0px 0 0 rgba(255, 255, 255, 0.5), 0 -1px 20px 0 rgba(187, 155, 255, 0.15), 0 -1px 5px 0 rgba(233, 223, 255, 0.3);
-  transition: 0.4s ease-in;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1), 0 4px 20px rgba(187, 155, 255, 0.2);  
+  transition: 0.25s ease-in;
 }
 
 .Main .card:nth-child(2) {
@@ -147,7 +146,7 @@
 }
 
 .Main .card:nth-child(5) {
-  --color: 348 80% 60%;
+  --color: 216 8% 77%;
 }
 
 .Main .card::before {
@@ -170,12 +169,13 @@
 }
 
 .Main .card:hover {
-  transform: translateY(-20px);
+  transform: translateY(-20px) scale(1.02);
   transition: 0.4s ease-out;
+  box-shadow: 0 8px 30px rgba(187, 155, 255, 0.3), 0 4px 12px rgba(233, 223, 255, 0.4);
 }
 
 .Main .card:hover i {
-  color: #101A88;
+  filter: drop-shadow(0 0 8px hsl(var(--color) / 0.5));
 }
 
 .Main .card:hover ~ .card{
@@ -186,7 +186,7 @@
 
 .Main .card i {
   color: #ffffff55;
-  font-size: min(3.25rem, 4.13vh);
+  font-size: 2.5rem;
   transition: .5s;
 }
 
@@ -197,8 +197,36 @@
 
 }
 
+.Main .card ul {
+  padding: 0;
+  width: 100%;
+}
+
 .Main .card ul li {
-  list-style-type: disc;
+  list-style-type: none;
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+}
+
+.Main .card ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+
+.Main .card ul li:hover {
+  color: white;
+  transform: translateX(5px);
+  transition: all 0.3s ease;
 }
 
 .Main .card .header {
@@ -232,26 +260,30 @@
 .Main ul.offer li {
   line-height: 1.25;
   margin-top: 0.45rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   list-style-type: disc;
 }
 
 .Main #schedule {
   scroll-snap-align: start;
-  padding-top: 6rem;  
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh; 
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 0 20rem;
+  padding-inline: 20rem;
+  padding-top: 10vh;
   position: relative;
 }
 
+.Main #schedule h2{
+  font-size: 1.7rem;
+}
+
+
 .Main #schedule::before, .Main #schedule::after{
-  content: "";
   position: relative;
   z-index: -1;
   border-radius: 50%;
@@ -280,19 +312,19 @@
 .Main #schedule .meet-status {
   position: absolute;  
   flex-direction: column;
-  top: calc(20% + 2.5rem);
+  top: calc(20vh + 2.5rem);
   left: 50%;
-  width: 40vw;
+  width: 35vw;
   height: 60%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   background-color: #ffffff10;
   padding: 0 2rem 2rem 2rem;
   border-radius: 10px;
   box-shadow: inset 0 0px 0 0 rgba(255, 255, 255, 0.5), 0 -1px 20px 0 rgba(187, 155, 255, 0.15), 0 -1px 5px 0 rgba(233, 223, 255, 0.3);
-  backdrop-filter: blur(10px);
+  filter: blur(10px);
   pointer-events: none;
   flex-shrink: 0;
   display: flex;
@@ -395,6 +427,7 @@
   padding-block: 1rem;
   font-size: 1.2rem;
   border-radius: 10px;
+  flex-shrink: 0;
 }
 
 .Main #schedule .meet-info .input_box {
@@ -406,6 +439,9 @@
   box-shadow: inset 0 0px 0 0 rgba(255, 255, 255, 0.5), 0 -1px 20px 0 rgba(187, 155, 255, 0.15), 0 -1px 5px 0 rgba(233, 223, 255, 0.3);
   height: 50px;
   border-radius: 10px;
+  background-color: #ffffff05;
+  backdrop-filter: blur(10px);
+  flex-shrink: 1;
 }
 
 .Main #schedule .meet-info textarea {
@@ -418,18 +454,18 @@
   border-radius: 10px;
   resize: none;
   border: 1px solid #ffffff22;
-  height: 30%;
   flex-grow: 2;
   backdrop-filter: blur(10px);
+  min-height: 65px;
 }
 
 .Main #schedule .meet-info .input_box input {
   background-color: #ffffff10;
   box-shadow:
     inset 5px 5px 10px #0B1D5145,
-    inset -5px -5px 10px #383e4b;
+    inset -5px -5px 10px #383e4b25;
   width: 100%;
-  flex-basis: 100%;
+  height: 100%;
   padding: 1rem;
   color: white;
   transition: all 0.2s ease-in-out;
@@ -440,7 +476,8 @@
 
 .Main #schedule .meet-info .input_box input:focus,
 .Main #schedule .meet-info .input_box input:valid,
-.Main #schedule .meet-info .wrapper form textarea:focus {
+.Main #schedule .meet-info textarea:focus {
+  border: 1px solid #101A8845;
   outline: none;
   box-shadow:
     inset 0px 0px 10px #BFC3C933,
