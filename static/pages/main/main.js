@@ -149,16 +149,15 @@ export class CorePage extends Page {
     this.#goToMeetInfo();    
   }
 
-  #sendCalendarEvent(time, eventName, guestEmail, guestName, guestDescription) {
-    this.components.calendar.channel.setEvent({
+  async #sendCalendarEvent(time, eventName, guestEmail, guestName, guestDescription) {
+    await this.components.calendar.channel.setEvent({
       time,
       eventName,
       guestEmail,
       guestName,
       guestDescription
-    }).then(() => {
-      this.#goToMeetStatus();
-    });    
+    });
+    this.#goToMeetStatus();    
   }
   
   #initCalendarButtons() {  
@@ -170,15 +169,22 @@ export class CorePage extends Page {
       this.#getMeetName();
     }
 
-    this.components.meetInfo.onsubmit = (event) => {
+    this.components.meetInfo.onsubmit = async (event) => {
       event.preventDefault();
       event.stopPropagation();
-      const time = getLocalDateTime(this.#currentSlot);
-      const name = this.components.meetName.innerHTML;
-      const guestName = this.components.guestName.value;
-      const email = this.components.guestEmail.value;
-      const description= this.components.guestDescription.value;
-      this.#sendCalendarEvent(time, name, email, guestName, description);
+      try {
+        //const time = getLocalDateTime(this.#currentSlot);
+        this.components.meetError.innerHTML = '&nbsp;';
+        const time = this.#currentSlot;
+        const name = this.components.meetName.innerHTML;
+        const guestName = this.components.guestName.value;
+        const email = this.components.guestEmail.value;
+        const description = this.components.guestDescription.value;
+        await this.#sendCalendarEvent(time, name, email, guestName, description);
+      } catch (e) {
+        this.components.meetError.innerHTML = 'This time slot is busy. Please select another slot';
+      }
+      
     }
   }
   
