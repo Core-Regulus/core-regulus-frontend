@@ -28,7 +28,7 @@ button {
 
 html {
   scroll-behavior: smooth;
-  font-size: 1vw;
+  font-size: clamp(16px, 1vw, 32px);
 }
 
 body {
@@ -75,6 +75,11 @@ h1 {
   transition: 0.3s;
   line-height: 1.5;
   text-align: center;
+  font-size: 1rem;
+}
+
+.error{
+  color: #b31212;
   font-size: 1rem;
 }
 
