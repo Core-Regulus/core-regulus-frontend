@@ -71,9 +71,13 @@
 .Main #schedule .meet-info,
 .Main #schedule .meet-status{
   height: 40vh;
-  min-height: 290px;
+  min-height: 320px;
   width: 70vw;
   top: calc(34vh + 1.8rem);
+}
+
+.Main #schedule textarea {
+  font-size: 1.2rem;
 }
 
 .Main #schedule .meet-info .input_box input::placeholder,

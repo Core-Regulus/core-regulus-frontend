@@ -28,7 +28,7 @@ button {
 
 html {
   scroll-behavior: smooth;
-  font-size: 1vw;
+  font-size: clamp(16px, 1vw, 32px);
 }
 
 body {
