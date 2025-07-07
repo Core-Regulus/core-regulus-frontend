@@ -172,17 +172,16 @@ export class CorePage extends Page {
     this.components.meetInfo.onsubmit = async (event) => {
       event.preventDefault();
       event.stopPropagation();
-      try {
-        //const time = getLocalDateTime(this.#currentSlot);
+      try {        
         this.components.meetError.innerHTML = '&nbsp;';
-        const time = this.#currentSlot;
+        const time = getLocalDateTime(this.#currentSlot);
         const name = this.components.meetName.innerHTML;
         const guestName = this.components.guestName.value;
         const email = this.components.guestEmail.value;
         const description = this.components.guestDescription.value;
         await this.#sendCalendarEvent(time, name, email, guestName, description);
       } catch (e) {
-        this.components.meetError.innerHTML = 'This time slot is busy. Please select another slot';
+        this.components.meetError.innerHTML = 'This time slot is busy. Please go back and select another time slot';
       }
       
     }
