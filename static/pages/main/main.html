@@ -80,23 +80,28 @@
       <section id="schedule" name="schedule-page">
         <h2>Schedule a Meeting</h2>
           <i-calendar name="calendar"></i-calendar>          
-          <form style="--i:1; --j:3;" class="meet-info">
+          <form style="--i:1; --j:3;" class="meet-info" name="meet-info">
             <div class="meet-header">
               <button type="button" name="back-to-Schedule"><i class='bxr bx-chevrons-left'></i>Back</button>
-              <span class="meet-name">Test test</span>
+              <div class="meet-block">
+                <span class="meet-name" name="meet-name">&nbsp;</span>
+                <span class="meet-slot" name="meet-slot"></span>
+              </div>              
             </div>
             <div class="input_box">
-              <input placeholder="Your-name" type="text" name="guest-name" required />
-              <!-- <label>Your name</label> -->
-              <i class="bx bxs-user"></i>
+              <label>
+                <input placeholder="Your-name" type="text" name="guest-name" required />              
+                <i class="bx bxs-user"></i>                
+              </label>
             </div>
-            <div class="input_box">
-              <input placeholder="E-mail" type="text" required name="guest-email" />
-              <!-- <label>E-mail</label> -->
-              <i class="bx bxs-envelope"></i>
+            <div class="input_box">              
+              <label>
+                <input placeholder="E-mail" type="email" name="guest-email" required />
+                <i class="bx bxs-envelope"></i>
+              </label>              
             </div>
             <textarea placeholder="Description" name="guest-description" id="desc"></textarea>
-            <button type="button" class="btn" name="confirm-meet">Confirm</button>
+            <button type="submit" class="btn" name="confirm-meet">Confirm</button>
           </form>
           <div class="meet-status">
             <h4>Meeting is created</h4>

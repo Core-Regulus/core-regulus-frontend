@@ -470,6 +470,12 @@
   color: #060A33;
 }
 
+.Main #schedule .meet-info .meet-block {
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .Main #schedule.meet-status .meet-info {
   opacity: 0;
   filter: blur(10px);
@@ -508,3 +514,9 @@
   padding: 1rem;
   backdrop-filter: blur(10px);
 }
+
+.Main label {
+  display: block;
+  width: 100%;
+}
+

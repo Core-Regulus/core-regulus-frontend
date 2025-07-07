@@ -16,6 +16,13 @@ class CalendarChannel extends JSONFetchChannel {
   }
 }
 
+function getLocalDateTime(date) {
+  const sDate = new Date(date);
+  const offset = sDate.getTimezoneOffset();
+  return new Date(sDate.getTime() - offset * 60 * 1000);
+}
+
+
 function getLocalDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -82,6 +89,7 @@ export class CorePage extends Page {
   }
 
   #goToMeetInfo() {
+    this.components.meetSlot.innerHTML = getLocalDateTime(this.#currentSlot).toLocaleString();
     this.components.schedulePage.classList.remove("meet-status");
     this.components.schedulePage.classList.add("meet-info");
   }
@@ -126,6 +134,13 @@ export class CorePage extends Page {
     calendar.slots = slotDate.slots;
   }
 
+  #getMeetName() {
+    const name = this.components.guestName.value;
+    if (name == '') {
+      this.components.meetName.innerHTML = '&nbsp;';
+    }
+    this.components.meetName.innerHTML = `Core Regulus - ${name} meeting`;
+  }
 
 
   #selectSlot = (_, date) => {    
@@ -133,28 +148,38 @@ export class CorePage extends Page {
     this.#currentSlot = isoDate;
     this.#goToMeetInfo();    
   }
+
+  #sendCalendarEvent(time, eventName, guestEmail, guestName, guestDescription) {
+    this.components.calendar.channel.setEvent({
+      time,
+      eventName,
+      guestEmail,
+      guestName,
+      guestDescription
+    }).then(() => {
+      this.#goToMeetStatus();
+    });    
+  }
   
   #initCalendarButtons() {  
     this.components.backToSchedule.onclick = () => {
       this.#goToSchedule();
     };
 
-    this.components.confirmMeet.onclick = () => {
-      this.#goToMeetStatus();
+    this.components.guestName.oninput = () => {
+      this.#getMeetName();
     }
 
-
-    /*this.components.confirmMeet.onclick = () => {
-      this.components.calendar.channel.setEvent({
-        time: '2025-07-07T09:00:00Z',
-        eventName: 'test Event',
-        guestEmail: 'nemesisv@mail.ru',
-        guestName: 'Vladimir',
-        guestDescription: "Test event for testing puprose"
-      }).then(() => {
-        this.#goToMeetStatus();
-      });      
-    };*/
+    this.components.meetInfo.onsubmit = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const time = getLocalDateTime(this.#currentSlot);
+      const name = this.components.meetName.innerHTML;
+      const guestName = this.components.guestName.value;
+      const email = this.components.guestEmail.value;
+      const description= this.components.guestDescription.value;
+      this.#sendCalendarEvent(time, name, email, guestName, description);
+    }
   }
   
   componentReady() {    

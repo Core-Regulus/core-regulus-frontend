@@ -144,7 +144,7 @@ class Calendar extends ComponentRoot {
 
     let k = 1;
     for (let i = firstDayOfMonth; i > 0; i--) {
-      liTag += `<button class="inactive" style="--i:${k}; --j:${21 + k};">${lastDateOfLastMonth - i + 1}</button>`;
+      liTag += `<button class="dis inactive" style="--i:${k}; --j:${21 + k};">${lastDateOfLastMonth - i + 1}</button>`;
       k++;
     }
 
