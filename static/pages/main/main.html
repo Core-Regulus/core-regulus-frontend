@@ -29,7 +29,7 @@
         <h2>We successfully provide IT services in</h2>
         <article class="card">
           <div class="header">
-            <i class='bxr  bx-cloud-alt'></i>
+            <i class='bxr bx-cloud-alt'></i>
             <h3 class="title">Retail services</h3>
           </div>          
           <ul>
@@ -77,35 +77,38 @@
           </ul>
         </article>
       </section>
-      <section id="schedule">
+      <section id="schedule" name="schedule-page">
         <h2>Schedule a Meeting</h2>
-        <div class="calendar-slider" name="calendar-slider">
-          <i-calendar name="calendar"></i-calendar>
-          <form class="meet-info">
-            <div claa="meet-header">
-              <button type="button"  name="back-to-Schedule">Back</button>
-              <span class="meet-name"></span>
-            </div>            
-            <label>
-              <span>Your Name</span>
-              <input name="guest-name"/>
-            </label>
-            <label>
-              <span>e-mail</span>
-              <input name="guest-email" />
-            </label>
-            <label>
-              <span>description</span>
-              <textarea name="guest-description"></textarea>
-            </label>
-            <button type="button" class="btn" name="confirm-meet">Confirm</button>
+          <i-calendar name="calendar"></i-calendar>          
+          <form style="--i:1; --j:3;" class="meet-info" name="meet-info">
+            <div class="meet-header">
+              <button type="button" name="back-to-Schedule"><i class='bxr bx-chevrons-left'></i>Back</button>
+              <div class="meet-block">
+                <span class="meet-name" name="meet-name">&nbsp;</span>
+                <span class="meet-slot" name="meet-slot"></span>
+              </div>              
+            </div>
+            <div class="input_box">
+              <label>
+                <input placeholder="Your-name" type="text" name="guest-name" required />              
+                <i class="bx bxs-user"></i>                
+              </label>
+            </div>
+            <div class="input_box">              
+              <label>
+                <input placeholder="E-mail" type="email" name="guest-email" required />
+                <i class="bx bxs-envelope"></i>
+              </label>              
+            </div>
+            <textarea placeholder="Description" name="guest-description" id="desc"></textarea>
+            <span class="error" name="meet-error">&nbsp;</span>
+            <button type="submit" class="btn" name="confirm-meet">Confirm</button>
           </form>
           <div class="meet-status">
-            <span>Meeting is created</span>
+            <h4>Meeting is created</h4>
             <span class="meet-name"></span>
-            <span>Check your email if you want to reschedule or cancel the meet</span>
+            <p>Check your email if you want to reschedule or cancel the meet.</p>
           </div>
-        </div>        
       </section>
     </main>  
 </core-page>

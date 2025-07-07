@@ -4,10 +4,24 @@ import '../../components/calendar/calendar.js';
 import '../../components/sphere/sphere.js'
 
 class CalendarChannel extends JSONFetchChannel {
-  get url() {
-    return 'https://api.core-regulus.com/calendar/days';
+
+  async send(data) {
+    this.url = 'https://api.core-regulus.com/calendar/days';
+    return await super.send(data);
+  }
+
+  async setEvent(data) {
+    this.url = 'https://api.core-regulus.com/calendar/event';
+    return await super.send(data);
   }
 }
+
+function getLocalDateTime(date) {
+  const sDate = new Date(date);
+  const offset = sDate.getTimezoneOffset();
+  return new Date(sDate.getTime() - offset * 60 * 1000);
+}
+
 
 function getLocalDate(date) {
   const year = date.getFullYear();
@@ -74,6 +88,21 @@ export class CorePage extends Page {
     this.components.content.onscroll = this.#scrollHandler;
   }
 
+  #goToMeetInfo() {
+    this.components.meetSlot.innerHTML = getLocalDateTime(this.#currentSlot).toLocaleString();
+    this.components.schedulePage.classList.remove("meet-status");
+    this.components.schedulePage.classList.add("meet-info");
+  }
+
+  #goToMeetStatus() {
+    this.components.schedulePage.classList.remove("meet-info");
+    this.components.schedulePage.classList.add("meet-status");
+  }
+
+  #goToSchedule() {
+    this.components.schedulePage.classList.remove("meet-status");
+    this.components.schedulePage.classList.remove("meet-info");
+  }
   
   #getCalendarButtonState = (_, date, calendarData) => {
     const isoDate = getLocalDate(date);
@@ -105,35 +134,57 @@ export class CorePage extends Page {
     calendar.slots = slotDate.slots;
   }
 
-  #scrollToScheduleMeet() {    
-    this.components.calendarSlider.scrollTo({ left: 0, behavior: "smooth" });
+  #getMeetName() {
+    const name = this.components.guestName.value;
+    if (name == '') {
+      this.components.meetName.innerHTML = '&nbsp;';
+    }
+    this.components.meetName.innerHTML = `Core Regulus - ${name} meeting`;
   }
 
-  #scrollToMeetInfo() {
-    const sval = this.components.calendarSlider.clientWidth;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
-
-  #scrollToMeetStatus() {
-    const sval = this.components.calendarSlider.clientWidth * 2;
-    this.components.calendarSlider.scrollTo({ left: sval, behavior: "smooth" });
-  }
 
   #selectSlot = (_, date) => {    
     const isoDate = date.toISOString();    
-    if (this.#currentSlot == isoDate) {
-      this.#scrollToMeetInfo();
-    }    
-    this.#currentSlot = isoDate;        
+    this.#currentSlot = isoDate;
+    this.#goToMeetInfo();    
   }
 
-  #initCalendarButtons() {
+  async #sendCalendarEvent(time, eventName, guestEmail, guestName, guestDescription) {
+    await this.components.calendar.channel.setEvent({
+      time,
+      eventName,
+      guestEmail,
+      guestName,
+      guestDescription
+    });
+    this.#goToMeetStatus();    
+  }
+  
+  #initCalendarButtons() {  
     this.components.backToSchedule.onclick = () => {
-      this.#scrollToScheduleMeet();
+      this.#goToSchedule();
     };
-    this.components.confirmMeet.onclick = () => {
-      this.#scrollToMeetStatus();
-    };
+
+    this.components.guestName.oninput = () => {
+      this.#getMeetName();
+    }
+
+    this.components.meetInfo.onsubmit = async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      try {        
+        this.components.meetError.innerHTML = '&nbsp;';
+        const time = getLocalDateTime(this.#currentSlot);
+        const name = this.components.meetName.innerHTML;
+        const guestName = this.components.guestName.value;
+        const email = this.components.guestEmail.value;
+        const description = this.components.guestDescription.value;
+        await this.#sendCalendarEvent(time, name, email, guestName, description);
+      } catch (e) {
+        this.components.meetError.innerHTML = 'This time slot is busy. Please go back and select another time slot';
+      }
+      
+    }
   }
   
   componentReady() {    

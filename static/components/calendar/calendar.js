@@ -142,15 +142,18 @@ class Calendar extends ComponentRoot {
     const calendarData = await this.#requestData(firstDayDate, lastDayDate);
     let liTag = ""
 
+    let k = 1;
     for (let i = firstDayOfMonth; i > 0; i--) {
-      liTag += `<button class="inactive">${lastDateOfLastMonth - i + 1}</button>`;
+      liTag += `<button class="dis inactive" style="--i:${k}; --j:${21 + k};">${lastDateOfLastMonth - i + 1}</button>`;
+      k++;
     }
 
     const currentDate = new Date(firstDayDate);
+    k = firstDayOfMonth + 1;
     for (let i = 1; i <= lastDateOfMonth; i++) {
       currentDate.setDate(i);
       const state = this.#callCalendarButtonState(currentDate, calendarData);
-      liTag += `<button class="${state}" date="${currentDate}">${i}</buttton>`;
+      liTag += `<button class="${state}" date="${currentDate}" style="--i:${1}; --j:${22};">${i}</button>`;
     }
 
     for (let i = lastDayOfMonth; i < 6; i++) {
@@ -212,15 +215,16 @@ class Calendar extends ComponentRoot {
   #setSlots() {
     this.components.hours.innerHTML = '';
     const hrs = [];
+    let index = 1;
     for (const slot of this.#slots) {
-      hrs.push(`<button class="${this.#callSlotButtonState(new Date(slot.timeStart))}" date="${slot.timeStart}">${this.#getISOTime(slot.timeStart)} - ${this.#getISOTime(slot.timeEnd)}</button>`)
+      hrs.push(`<button style="--i:${index}; --j:${20 + index};" class="${this.#callSlotButtonState(new Date(slot.timeStart))}" date="${slot.timeStart}">${this.#getISOTime(slot.timeStart)} - ${this.#getISOTime(slot.timeEnd)}</button>`)
+      index++;
     }
     this.components.hours.innerHTML = hrs.join('');
     this.components.hours.onclick = (event) => {
       const tDate = this.#getDateFromButton(event.target);
-      this.#selectSlot(tDate);
-    }
-
+      this.#selectSlot(tDate);      
+    }    
   }
   
   get url() { return import.meta.resolve('./calendar.html') }
