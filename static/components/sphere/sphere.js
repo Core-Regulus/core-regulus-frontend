@@ -104,12 +104,12 @@ export class Sphere extends HTMLElement {
       const particleCount = 3000;
 
       const ringColors = [
-        new THREE.Color('#4B0082'), // индиго
-        new THREE.Color('#979CA2'), // холодный нейтральный
-        new THREE.Color('#5D478B'), // пыльная сирень
-        new THREE.Color('#3D0066'), // мистический фиолет
-        new THREE.Color('#ADBCC2'), // металлический оловянный
-        new THREE.Color('#B8F3FF')  // голубое неоновое свечение
+        new THREE.Color('#4B0082'),
+        new THREE.Color('#979CA2'),
+        new THREE.Color('#5D478B'),
+        new THREE.Color('#3D0066'),
+        new THREE.Color('#ADBCC2'),
+        new THREE.Color('#B8F3FF')
       ];
 
       for (let j = 0; j < particleCount; j++) {
@@ -119,7 +119,7 @@ export class Sphere extends HTMLElement {
         const y = (Math.random() - 0.5) * thickness;
         const z = Math.sin(angle) * radiusVariation;
         positions.push(x, y, z);
-        const color = ringColors[i]; // Используем цвет из массива для кольца i
+        const color = ringColors[i];
         colors.push(color.r, color.g, color.b);
         sizes.push(Math.random() * 0.12 + 0.06);
       }
@@ -188,7 +188,7 @@ export class Sphere extends HTMLElement {
     this.#scene = new THREE.Scene();
     this.#scene.fog = new THREE.FogExp2(0xffffff00, 0.01);
 
-    this.#camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // aspect будет обновлён позже
+    this.#camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
     this.#renderer = new THREE.WebGLRenderer({
       antialias: true,
       powerPreference: "high-performance"
