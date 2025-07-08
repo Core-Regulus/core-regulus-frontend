@@ -55,12 +55,6 @@ h1 {
   font-size: 3.5rem;
 }
 
-.strong{
-  display: inline-block;
-  background-color:#101A88;
-}
-
-
 .btn {
   padding-block: 1rem;
   width: clamp(100px, 20vw, 350px);

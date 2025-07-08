@@ -206,20 +206,16 @@
 
 .Main .card ul li {
   list-style-type: none;
-  position: relative;
-  padding: 0.35rem 0 0.35rem 1.75rem;  
   font-size: 0.9rem;  
   color: rgba(255, 255, 255, 0.85);
   text-align: left;
 }
 
 .Main .card ul li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
+  content: "•";   
   color: #ffffff;
   font-size: 1.5rem;
-  line-height: 1;
+  margin-right: 0.5rem;
 }
 
 
