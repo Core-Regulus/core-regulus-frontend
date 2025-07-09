@@ -1,10 +1,19 @@
 
 i-calendar{
-  height: 50vh;
+  min-width: 0;
+  height: 55vh;
   min-height: 350px;
 }
 
 i-calendar .calendar-body .days button {
   width: 4rem;
   height: 4rem;
+}
+
+i-calendar .calendar-body{
+  padding: 0;
+}
+
+i-calendar .hours{
+  padding: 1rem 0.5rem 1rem 0.5rem;  
 }
