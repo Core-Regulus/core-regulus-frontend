@@ -3,6 +3,12 @@ i-calendar{
   min-width: 0;
   height: 55vh;
   min-height: 350px;
+  width: 80%;
+  overflow: hidden;
+}
+
+i-calendar .wrapper {
+  min-width: 0;  
 }
 
 i-calendar .calendar-body .days button {
