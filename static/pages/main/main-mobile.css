@@ -75,7 +75,7 @@
 .Main #schedule .meet-info,
 .Main #schedule .meet-status{
   height: 40vh;
-  width: 70vw;
+  width: calc(4rem * 7 + 10rem);
   top: calc(34vh + 1.8rem);
 }
 
