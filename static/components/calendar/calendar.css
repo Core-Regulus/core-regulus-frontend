@@ -1,12 +1,11 @@
 i-calendar {
   min-height: max(350px, 60vh);
   flex-shrink: 0;
-  width: 50vw;
+  width: clamp(350px, 50vw, 800px);
 }
 
 i-calendar .wrapper {
-  --days-size: min(5vw, 4.5rem);
-  min-width: 600px;
+  --days-size: min(5vw, 4.5rem);  
   height: 100%;
   width: 100%;
   background-color: #77777710;
