@@ -1,11 +1,11 @@
 i-calendar {
-  width: 100%;
   min-height: 70vh;
   flex-shrink: 0;
 }
 
 i-calendar .wrapper {
-  width: 100%;
+  --days-size: min(5vw, 4.5rem);
+  min-width: 60vw;    
   height: 100%;
   background-color: #77777710;
   backdrop-filter: blur(20px);
@@ -13,7 +13,7 @@ i-calendar .wrapper {
   box-shadow: 0px 15px 40px #00000012;
   border: 1px solid #ffffff33;
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: minmax(250px, 175%) minmax(100px, 25%);
   grid-template-rows: auto 1fr;
   grid-template-areas:
     "header content"
@@ -35,16 +35,26 @@ i-calendar .hours {
   backdrop-filter: blur(15px);
   padding: 1rem;
 }
+@media(max-width: 1000px){
+  /* i-calendar .wrapper {
+    min-width: 0;
+  } */
+  i-calendar .hours{
+    padding-inline: 0;
+  }
+}
 
 i-calendar .hours button {
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 1.7778vw, 1rem);
   cursor: pointer;
   background-image: linear-gradient(135deg, #ffffff05, #ffffff22);
   margin-bottom: 0.5rem;
   border-radius: 10px;
   border: 1px solid #ffffff33;
   backdrop-filter: blur(15px);
+  width: 100%;
+  text-align: center;
 }
 
 i-calendar .hours button.active {
@@ -94,17 +104,17 @@ i-calendar .days {
 
 i-calendar .calendar-body .weeks li {
   text-align: center;
-  font-size: 1.7rem;
+  font-size: clamp(1.2rem, 2.473vw, 1.7rem);
   line-height: 1;
   
 }
 
 i-calendar .calendar-body .days button {
   text-align: center;
-  font-size: 1.7rem;
+  font-size: clamp(1.2rem, 2.473vw, 1.7rem);
   line-height: 1;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: min(5vw, 4.5rem);
+  aspect-ratio: 1;
   border-radius: 50%;
   font-weight: 400;
 }
