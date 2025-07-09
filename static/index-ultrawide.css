@@ -1,0 +1,6 @@
+@media (min-aspect-ratio: 17/9),(min-width: 400px){  
+  html {
+    scroll-behavior: smooth;
+    font-size: clamp(10px, 0.8vw, 16px) !important;
+  }
+}

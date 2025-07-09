@@ -15,6 +15,5 @@ i-calendar .calendar-body{
 }
 
 i-calendar .hours{
-  padding: 0;
-  padding-bottom: 1rem;
+  padding: 1rem 0.5rem 1rem 0.5rem;  
 }
