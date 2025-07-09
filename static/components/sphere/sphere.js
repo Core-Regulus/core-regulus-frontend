@@ -231,7 +231,7 @@ export class Sphere extends HTMLElement {
     mainGroup.add(this.#coreSphere);
     mainGroup.add(this.#orbitRings);
     this.#scene.add(mainGroup);   
-    this.#animate();
+    //this.#animate();
   }  
 
   #initResize() {

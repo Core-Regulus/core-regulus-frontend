@@ -2,6 +2,10 @@
   scroll-snap-type: y mandatory;
 }
 
+.Main header{
+  padding-inline: 1rem; 
+}
+
 .Main .core {  
   flex-direction: column;
   justify-content: center; 
@@ -12,6 +16,7 @@
   width: 60%;
   order: -1;
 }
+
 
 .Main .core .text-block {
   white-space: wrap;
@@ -64,14 +69,12 @@
 }
 
 .Main #schedule {
-  padding-inline: 2rem;
   padding-top: 25vh;
 }
 
 .Main #schedule .meet-info,
 .Main #schedule .meet-status{
   height: 40vh;
-  min-height: 320px;
   width: 70vw;
   top: calc(34vh + 1.8rem);
 }
