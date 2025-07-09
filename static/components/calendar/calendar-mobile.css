@@ -3,12 +3,13 @@ i-calendar{
   min-width: 0;
   height: 55vh;
   min-height: 350px;
-  width: 80%;
+  width: calc(4rem * 7 + 10rem);
   overflow: hidden;
 }
 
 i-calendar .wrapper {
   min-width: 0;  
+  grid-template-columns: calc(4rem * 7) 10rem;
 }
 
 i-calendar .calendar-body .days button {
@@ -22,4 +23,10 @@ i-calendar .calendar-body{
 
 i-calendar .hours{
   padding: 1rem 0.5rem 1rem 0.5rem;  
+}
+
+i-calendar .weeks,
+i-calendar .days {  
+  grid-template-columns: repeat(7, 4rem);
+  
 }
