@@ -1,7 +1,7 @@
 i-calendar {
   min-height: max(350px, 60vh);
   flex-shrink: 0;
-  width: clamp(350px, 50vw, 800px);
+  width: min(56vw, 800px);
 }
 
 i-calendar .wrapper {

@@ -310,11 +310,10 @@
 .Main #schedule .meet-status {
   position: absolute;  
   flex-direction: column;
-  top: calc(20vh);
+  top: calc(15vh + 1.7rem * 1.2 + 3rem);
   left: 50%;
   width: 35vw;
-  height: calc(4rem * 7 + 10rem);
-  min-height: 320px;
+  height: max(320px, 50vh);
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
