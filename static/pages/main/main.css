@@ -56,7 +56,7 @@
 
 .Main header.header-scroll {
   background-image: linear-gradient(60deg, #00000022, #00000033);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
   border-bottom: 2px solid #ffffff22;
   box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -558,3 +558,45 @@
   font-size: 1.2rem;
 }
 
+.footer {
+  --bg-color: rgba(255, 255, 255, 0.25);
+  --highlight: rgba(255, 255, 255, 0.75);
+  --text: #ffffff;      
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 0.5rem;
+  box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  font-size: 1.2rem;
+  padding: 30px 40px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+.glass-filter,
+.glass-overlay,
+.glass-specular{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.glass-filter{
+    z-index: 0;
+    backdrop-filter: blur(4px);
+    filter: url(#glass-distortion) brightness(1.3);
+}
+
+.glass-overlay{
+    z-index: -1;
+    box-shadow: inset 1px 1px 1px 1px var(--bg-color);
+}
+
+.glass-specular {
+  z-index: -1;
+}
