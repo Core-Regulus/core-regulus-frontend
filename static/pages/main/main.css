@@ -107,7 +107,7 @@
   scroll-snap-align: end;
   row-gap: 3rem;
   column-gap: 1.5rem;
-  padding: 0 5% 0 5%;
+  padding: 10rem 5% 0 5%;
   min-height: 450px;
 }
 
@@ -566,6 +566,7 @@
   position: relative;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
   border-top: 2px solid #ffffff05;
+  scroll-snap-align: end;  
 }
 
 .glass-filter,
@@ -607,33 +608,37 @@
 
 .footer-section h3 {
   font-size: 1.25rem;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
-.footer-section ul{
+.footer-section {
   display: flex;
   row-gap: 0.8rem;
   flex-direction: column;
 }
 
-.footer-rights{
+.footer-rights {
   display: flex;
   justify-content: center;
   padding-block: 1.5rem;
   position: relative;
 }
 
-.footer-rights p{
+.footer-rights p {
   font-size: 1.15rem;
 }
 
+.Main .footer-section a {
+  padding: 0;
+}
 
-.footer-section a:hover {
+.Main .footer-section a:hover {
   color: #0d6efd;
 
 }
 
-.footer-section a:active{
+.Main .footer-section a:active{
   background: #060A33;
   box-shadow: 0 0 5px #060A33,
     0 0 25px #060A33,
