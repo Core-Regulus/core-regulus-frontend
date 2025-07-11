@@ -43,9 +43,7 @@ function gatherErrorData(event) {
   return {
     message: error.message,
     eventType: event.type,
-    href: window.location.href,
-    agent: window.navigator.userAgent,
-    referrer: window.document.referrer,
+    href: window.location.href,    
     requestUrl: requestData?.url ?? null,
     requestBody: requestData?.body,
     requestStatus: requestData?.status ?? null,
@@ -67,9 +65,7 @@ function createLogObject(data) {
   return {
     message: data.message,
     eventType: data.type,
-    href: window.location.href,
-    agent: window.navigator.userAgent,
-    referrer: window.document.referrer,
+    href: window.location.href,    
     requestUrl: null,
     requestBody: null,
     requestStatus: null,
