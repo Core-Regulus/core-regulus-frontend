@@ -80,32 +80,69 @@
       </section>
       <section id="schedule" name="schedule-page">
         <h2>Schedule a Meeting</h2>
-          <i-calendar name="calendar"></i-calendar>          
-          <form style="--i:1; --j:3;" class="meet-info" name="meet-info">
-            <div class="meet-header">
-              <button type="button" name="back-to-Schedule"><i class='bxr bx-chevrons-left'></i>Back</button>
-              <div class="meet-block">
-                <span class="meet-name" name="meet-name">&nbsp;</span>
-                <span class="meet-slot" name="meet-slot"></span>
-              </div>              
-            </div>
-            <label class="input_box">              
-              <input placeholder="Your-name" type="text" name="guest-name" required />              
-              <i class="bx bxs-user"></i>                              
-            </label>
-            <label class="input_box">              
-              <input placeholder="E-mail" type="email" name="guest-email" required />
-              <i class="bx bxs-envelope"></i>              
-            </label>
-            <textarea placeholder="Description" name="guest-description" id="desc"></textarea>
-            <span class="error" name="meet-error">&nbsp;</span>
-            <button type="submit" class="btn" name="confirm-meet">Confirm</button>
-          </form>
-          <div class="meet-status">
-            <h4>Meeting is created</h4>
-            <span class="meet-name"></span>
-            <p>Check your email if you want to reschedule or cancel the meet.</p>
+        <i-calendar name="calendar"></i-calendar>          
+        <form style="--i:1; --j:3;" class="meet-info" name="meet-info">
+          <div class="meet-header">
+            <button type="button" name="back-to-Schedule"><i class='bxr bx-chevrons-left'></i>Back</button>
+            <div class="meet-block">
+              <span class="meet-name" name="meet-name">&nbsp;</span>
+              <span class="meet-slot" name="meet-slot"></span>
+            </div>              
           </div>
+          <label class="input_box">              
+            <input placeholder="Your-name" type="text" name="guest-name" required />              
+            <i class="bx bxs-user"></i>                              
+          </label>
+          <label class="input_box">              
+            <input placeholder="E-mail" type="email" name="guest-email" required />
+            <i class="bx bxs-envelope"></i>              
+          </label>
+          <textarea placeholder="Description" name="guest-description" id="desc"></textarea>
+          <span class="error" name="meet-error">&nbsp;</span>
+          <button type="submit" class="btn" name="confirm-meet">Confirm</button>
+        </form>
+        <div class="meet-status">
+          <h4>Meeting is created</h4>
+          <span class="meet-name"></span>
+          <p>Check your email if you want to reschedule or cancel the meet.</p>
+        </div>
       </section>
-    </main>  
+    <svg style="display: none">
+      <filter id="glass-distortion">
+          <feTurbulence type="turbulence" baseFrequency="0.008" numOctaves="2" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="77" />
+      </filter>
+    </svg> 
+    <footer class="footer">
+      <div class="glass-form"></div>
+      <div class="glass-filter"></div>
+      <div class="glass-specular"></div>    
+      <div class="glass-content">
+        <div class="footer-section">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#home" target="_blank">About</a></li>
+            <li><a href="#industries" target="_blank">Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/core-regulus" target="_blank">Blog</a></li>
+            <li><a href="#" target="_blank">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:millerrabin@core-regulus.com" target="_blank">E-mail</a></li>
+            <li><a href="https://www.linkedin.com/company/core-regulus" target="_blank">Linkedin</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-rights">
+        <p>© 2025 Core Regulus. All rights reserved</p>
+      </div>     
+    </footer>
+  </main>     
 </core-page>
