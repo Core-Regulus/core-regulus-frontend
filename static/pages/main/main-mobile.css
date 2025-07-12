@@ -6,15 +6,17 @@
   padding-inline: 1rem; 
 }
 
-.Main .core {  
-  flex-direction: column;
-  justify-content: center; 
-  font-size: 1rem;
-}
+@media (max-width: 660px) {
+  .Main .core {  
+    flex-direction: column;
+    justify-content: center; 
+    font-size: 1rem;
+  }
 
-.Main #Render {
-  width: 60%;
-  order: -1;
+  .Main #Render {
+    width: 60%;
+    order: -1;
+  }
 }
 
 
@@ -23,6 +25,9 @@
   padding-left: 3rem;
 }
 
+.Main .industries h2{
+  white-space: nowrap;
+}
 
 .Main .industries {
   height: 100vh;
@@ -30,7 +35,7 @@
   grid-template-rows: 4rem repeat(4, 20%);
   grid-template-columns: auto;
   padding: 6rem 2rem 0 2rem;
-  row-gap: 1rem; 
+  row-gap: 1.5rem; 
   scroll-snap-align: start;
 }
 
@@ -74,7 +79,7 @@
 
 .Main #schedule .meet-info,
 .Main #schedule .meet-status{
-  height: 40vh;
+  height: max(300px, 40vh);
   width: calc(4rem * 7 + 10rem);
   top: calc(34vh + 1.8rem);
 }

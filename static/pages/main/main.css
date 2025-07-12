@@ -56,7 +56,7 @@
 
 .Main header.header-scroll {
   background-image: linear-gradient(60deg, #00000022, #00000033);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
   border-bottom: 2px solid #ffffff22;
   box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -107,7 +107,7 @@
   scroll-snap-align: end;
   row-gap: 3rem;
   column-gap: 1.5rem;
-  padding: 0 5% 0 5%;
+  padding: 10rem 5% 0 5%;
   min-height: 450px;
 }
 
@@ -310,11 +310,10 @@
 .Main #schedule .meet-status {
   position: absolute;  
   flex-direction: column;
-  top: calc(20vh);
+  top: calc(15vh + 1.7rem * 1.2 + 3rem);
   left: 50%;
   width: 35vw;
-  height: calc(4rem * 7 + 10rem);
-  min-height: 320px;
+  height: max(320px, 50vh);
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -559,3 +558,90 @@
   font-size: 1.2rem;
 }
 
+.footer {
+  --bg-color: rgba(255, 255, 255, 0.25);
+  --highlight: rgba(255, 255, 255, 0.75);
+  --text: #ffffff;      
+  font-size: 1.2rem;
+  position: relative;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+  border-top: 2px solid #ffffff05;
+  scroll-snap-align: end;  
+}
+
+.glass-filter,
+.glass-overlay,
+.glass-specular{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.glass-filter{
+    z-index: 0;
+    backdrop-filter: blur(4px);
+    filter: url(#glass-distortion) brightness(1.3);
+}
+
+.glass-overlay{
+    z-index: -1;
+    box-shadow: inset 1px 1px 1px 1px var(--bg-color);
+}
+
+.glass-specular {
+  z-index: -1;
+}
+
+.glass-content{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid #ffffff22;
+  padding-block: 1.2rem;
+}
+
+.footer-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.footer-section {
+  display: flex;
+  row-gap: 0.8rem;
+  flex-direction: column;
+}
+
+.footer-rights {
+  display: flex;
+  justify-content: center;
+  padding-block: 1.5rem;
+  position: relative;
+}
+
+.footer-rights p {
+  font-size: 1.15rem;
+}
+
+.Main .footer-section a {
+  padding: 0;
+}
+
+.Main .footer-section a:hover {
+  color: #0d6efd;
+
+}
+
+.Main .footer-section a:active{
+  background: #060A33;
+  box-shadow: 0 0 5px #060A33,
+    0 0 25px #060A33,
+    0 0 50px #060A33,
+    0 0 200px #060A33;  
+}
