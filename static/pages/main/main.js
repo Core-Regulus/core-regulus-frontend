@@ -1,20 +1,6 @@
 import { Page } from 'https://components.int-t.com/current/core/page/page.js';
-import { JSONFetchChannel } from 'https://components.int-t.com/current/core/jsonFetchChannel/jsonFetchChannel.js';
-import '../../components/calendar/calendar.js';
+import { CalendarChannel } from  '../../components/calendar/calendar.js';
 import '../../components/sphere/sphere.js'
-
-class CalendarChannel extends JSONFetchChannel {
-
-  async send(data) {
-    this.url = 'https://api.core-regulus.com/calendar/days';
-    return await super.send(data);
-  }
-
-  async setEvent(data) {
-    this.url = 'https://api.core-regulus.com/calendar/event';
-    return await super.send(data);
-  }
-}
 
 function getLocalDateTime(date) {
   const sDate = new Date(date);
@@ -124,9 +110,15 @@ export class CorePage extends Page {
     return str == this.#currentSlot;
   }
 
-  #selectDate = (calendar, date, calendarData) => {
+  #selectDate = async (calendar, date, calendarData) => {
+    const newDate = new Date(date);
+    newDate.setDate(date.getDate() + 1);
+    const currentSlots = await calendar.channel.send({
+      dateStart: date,
+      dateEnd: newDate
+    });    
     const isoDate = getLocalDate(date);
-    const slotDate = calendarData[isoDate];
+    const slotDate = currentSlots[isoDate];
     if ((slotDate?.slots == null) ||
       (slotDate.slots.length == 0))
       return;
