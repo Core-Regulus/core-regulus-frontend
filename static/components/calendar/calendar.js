@@ -1,4 +1,38 @@
+import { JSONFetchChannel } from 'https://components.int-t.com/current/core/jsonFetchChannel/jsonFetchChannel.js';
 import { ComponentRoot } from 'https://components.int-t.com/current/core/componentRoot/componentRoot.js';
+
+export class CalendarChannel extends JSONFetchChannel {
+  #hashData(calendarData) {
+    const res = {};
+    for (const day of calendarData.days) {
+      res[day.date] = day;
+    }
+    return res;
+  }
+
+  #getISODate(date) {
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dt = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${dt}`;
+  }
+
+  async send(data) {
+    this.url = 'https://api.core-regulus.com/calendar/days';
+    const cdata = {
+      "dateStart": this.#getISODate(data.dateStart),
+      "dateEnd": this.#getISODate(data.dateEnd)
+    };
+    const res = await super.send(cdata);
+    return this.#hashData(res);
+  }
+
+  async setEvent(data) {
+    this.url = 'https://api.core-regulus.com/calendar/event';
+    return await super.send(data);
+  }
+}
+
 
 class Calendar extends ComponentRoot {
   #date = new Date();
@@ -24,24 +58,8 @@ class Calendar extends ComponentRoot {
     return this.#onSlotButtonState(this, slotDate);
   }
 
-  #hashData(calendarData) {
-    const res = {};
-    for (const day of calendarData.days) {
-      res[day.date] = day;
-    }
-    return res;
-  }
-
-  async #requestData(dateStart, dateEnd) {    
-    const cdata = await this.#channel.send({
-      "dateStart": this.#getISODate(dateStart),
-      "dateEnd": this.#getISODate(dateEnd)
-    });    
-    return this.#hashData(cdata);    
-  }
-
-  #selectDate(date, calendarData) {
-    this.#onSelectDate?.(this, date, calendarData);
+  async #selectDate(date, calendarData) {
+    await this.#onSelectDate?.(this, date, calendarData);
     this.#refreshCalendarButtonState(calendarData)
   }
 
@@ -139,7 +157,7 @@ class Calendar extends ComponentRoot {
     const lastDayOfMonth = new Date(this.#currYear, this.#currMonth, lastDateOfMonth).getDate();
     const lastDateOfLastMonth = new Date(this.#currYear, this.#currMonth, 0).getDate();
 
-    const calendarData = await this.#requestData(firstDayDate, lastDayDate);
+    const calendarData = await this.#channel.send({dateStart: firstDayDate, dateEnd: lastDayDate});
     let liTag = ""
 
     let k = 1;
@@ -197,13 +215,6 @@ class Calendar extends ComponentRoot {
     const hs = (tDate.getHours().toString()).padStart(2, '0');
     const ms = (tDate.getMinutes().toString()).padStart(2, '0');
     return `${hs}:${ms}`;
-  }
-
-  #getISODate(date) {    
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const dt = date.getDate().toString().padStart(2, '0');        
-    return `${year}-${month}-${dt}`;
   }
 
   #getLocalDateTime(date) {

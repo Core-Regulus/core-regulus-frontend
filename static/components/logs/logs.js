@@ -88,7 +88,7 @@ export async function send(data) {
 async function handleError(event) {
   try {
     const data = gatherErrorData(event);
-    await sendLogData(data);
+    return await channel.send(data);
   } catch (e) {
     console.error(e);
   }
