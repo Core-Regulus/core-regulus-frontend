@@ -4,6 +4,7 @@ import { ComponentRoot } from 'https://components.int-t.com/current/core/compone
 export class CalendarChannel extends JSONFetchChannel {
   #hashData(calendarData) {
     const res = {};
+    if (calendarData.days == null) return res;
     for (const day of calendarData.days) {
       res[day.date] = day;
     }
