@@ -1,3 +1,5 @@
+//version=0.1.0
+
 import { JSONFetchChannel } from 'https://components.int-t.com/current/core/jsonFetchChannel/jsonFetchChannel.js';
 import { ComponentRoot } from 'https://components.int-t.com/current/core/componentRoot/componentRoot.js';
 
@@ -169,9 +171,11 @@ class Calendar extends ComponentRoot {
 
     const currentDate = new Date(firstDayDate);
     k = firstDayOfMonth + 1;
+    let activeCount = 0;
     for (let i = 1; i <= lastDateOfMonth; i++) {
       currentDate.setDate(i);
       const state = this.#callCalendarButtonState(currentDate, calendarData);
+      if (state === '') activeCount++;
       liTag += `<button class="${state}" date="${currentDate}" style="--i:${1}; --j:${22};">${i}</button>`;
     }
 
@@ -186,6 +190,12 @@ class Calendar extends ComponentRoot {
       const tDate = this.#getDateFromButton(event.target);
       this.#selectDate(tDate, calendarData);
     }
+
+    if (activeCount === 0) {
+      setTimeout(() => {
+        this.nextMonth();
+      }, 0);
+    }
   }
 
   async #handleCurrentDate() {
@@ -199,16 +209,19 @@ class Calendar extends ComponentRoot {
     this.#renderCalendar();
   }
 
-  #renderButtons() {
-    this.components.next.onclick = () => {
-      this.#currMonth = this.#currMonth + 1;      
-      this.#handleCurrentDate();
-    }
+  nextMonth = () => {
+    this.#currMonth = this.#currMonth + 1;
+    this.#handleCurrentDate();
+  }
 
-    this.components.prev.onclick = () => {
-      this.#currMonth = this.#currMonth - 1;
-      this.#handleCurrentDate();
-    }  
+  prevMonth = () => {
+    this.#currMonth = this.#currMonth - 1;
+    this.#handleCurrentDate();
+  }
+
+  #renderButtons() {
+    this.components.next.onclick = this.nextMonth;
+    this.components.prev.onclick = this.prevMonth;     
   }
 
   #getISOTime(date) {
