@@ -4,7 +4,7 @@ i-calendar {
   --text: #ffffff;    
   min-height: max(350px, 60vh);
   flex-shrink: 0;
-  width: min(56vw, 800px);  
+  width: 42vw;  
   position: relative;
   box-shadow: 0 6px 24px hsla(0, 0%, 0%, 0.2);
 }
